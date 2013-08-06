@@ -230,16 +230,20 @@ public class GenerateCSPPanel extends JPanel {
             linearizedCterms.add(new JsonPrimitive(currentConstraint.cterm));
         }
 
-        JsonArray jsonedDomain = new JsonArray();
-        jsonedDomain.add(new JsonPrimitive(1));
-        jsonedDomain.add(new JsonPrimitive(domainSize));
+        JsonArray domains = new JsonArray();
+        for (int i=0; i<numberOfVariables; i++) {
+            JsonArray jsonedDomain = new JsonArray();
+            jsonedDomain.add(new JsonPrimitive(1));
+            jsonedDomain.add(new JsonPrimitive(domainSize));
+            domains.add(jsonedDomain);
+        }
 
         JsonObject root = new JsonObject();
         root.add("vnum", new JsonPrimitive(numberOfVariables));
         root.add("cnum", new JsonPrimitive(numberOfConstraints));
         root.add("coeffs", linearizedCoeffs);
         root.add("cterms", linearizedCterms);
-        root.add("domain", jsonedDomain);
+        root.add("domain", domains);
 
 
         System.out.println("root is");

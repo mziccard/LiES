@@ -5,8 +5,8 @@
     <ignored path="SistemiConVincoli.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/MainWindow.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375387427055" ignored="false" />
-    <file path="/GenerateCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375791588740" ignored="false" />
-    <file path="/fragment.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375215304475" ignored="false" />
+    <file path="/GenerateCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375799194310" ignored="false" />
+    <file path="/fragment.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375792966258" ignored="false" />
     <file path="$PROJECT_DIR$/libs/syntheticaBlackStar.jar!/de/javasoft/plaf/synthetica/blackstar/xml/synth.xml" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375218133013" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,15 +80,9 @@
       <file leaf-file-name="GenerateCSPPanel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="253" column="46" selection-start="10242" selection-end="10242" vertical-scroll-proportion="0.80878186">
+            <state line="237" column="35" selection-start="9814" selection-end="9814" vertical-scroll-proportion="0.47424892">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3100#3563#0" expanded="true" />
-                <element signature="e#3552#3553#0" expanded="true" />
-                <element signature="e#4070#4539#0" expanded="true" />
-                <element signature="e#4528#4529#0" expanded="true" />
-                <element signature="e#6668#6834#0" expanded="true" />
-                <element signature="e#6823#6824#0" expanded="true" />
                 <element signature="e#7832#7841#0" expanded="true" />
                 <element signature="e#8010#8019#0" expanded="true" />
               </folding>
@@ -142,6 +136,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,12 +171,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
@@ -198,7 +192,7 @@
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.SistemiConVincoli">
+  <component name="RunManager" selected="Application.LiES">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
@@ -287,7 +281,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="SistemiConVincoli" type="Application" factoryName="Application">
+    <configuration default="false" name="LiES" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="MainWindow" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -297,7 +291,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="SistemiConVincoli" />
+      <module name="LiES" />
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="" />
@@ -310,7 +304,7 @@
       <method />
     </configuration>
     <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Application.SistemiConVincoli" />
+      <item index="0" class="java.lang.String" itemvalue="Application.LiES" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -328,7 +322,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="875" extended-state="4" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -338,16 +332,16 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3251366" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24927954" sideWeight="0.67166215" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32833788" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24927954" sideWeight="0.6721311" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32786885" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880434" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561308" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -417,6 +411,35 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="278" column="61" selection-start="11036" selection-end="11036" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7832#7841#0" expanded="true" />
+            <element signature="e#8010#8019#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="253" column="46" selection-start="10242" selection-end="10242" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7832#7841#0" expanded="true" />
+            <element signature="e#8010#8019#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -429,12 +452,6 @@
         <state line="5" column="37" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3100#3563#0" expanded="true" />
-            <element signature="e#3552#3553#0" expanded="true" />
-            <element signature="e#4070#4539#0" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#6668#6834#0" expanded="true" />
-            <element signature="e#6823#6824#0" expanded="true" />
             <element signature="e#7832#7841#0" expanded="true" />
             <element signature="e#8010#8019#0" expanded="true" />
           </folding>
@@ -453,12 +470,6 @@
         <state line="97" column="44" selection-start="3734" selection-end="3734" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3100#3563#0" expanded="true" />
-            <element signature="e#3552#3553#0" expanded="true" />
-            <element signature="e#4070#4539#0" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#6668#6834#0" expanded="true" />
-            <element signature="e#6823#6824#0" expanded="true" />
             <element signature="e#7832#7841#0" expanded="true" />
             <element signature="e#8010#8019#0" expanded="true" />
           </folding>
@@ -477,12 +488,6 @@
         <state line="97" column="44" selection-start="3734" selection-end="3734" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3100#3563#0" expanded="true" />
-            <element signature="e#3552#3553#0" expanded="true" />
-            <element signature="e#4070#4539#0" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#6668#6834#0" expanded="true" />
-            <element signature="e#6823#6824#0" expanded="true" />
             <element signature="e#7832#7841#0" expanded="true" />
             <element signature="e#8010#8019#0" expanded="true" />
           </folding>
@@ -501,12 +506,6 @@
         <state line="67" column="39" selection-start="2555" selection-end="2555" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3100#3563#0" expanded="true" />
-            <element signature="e#3552#3553#0" expanded="true" />
-            <element signature="e#4070#4539#0" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#6668#6834#0" expanded="true" />
-            <element signature="e#6823#6824#0" expanded="true" />
             <element signature="e#7832#7841#0" expanded="true" />
             <element signature="e#8010#8019#0" expanded="true" />
           </folding>
@@ -539,15 +538,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="253" column="46" selection-start="10242" selection-end="10242" vertical-scroll-proportion="0.80878186">
+        <state line="237" column="35" selection-start="9814" selection-end="9814" vertical-scroll-proportion="0.47424892">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3100#3563#0" expanded="true" />
-            <element signature="e#3552#3553#0" expanded="true" />
-            <element signature="e#4070#4539#0" expanded="true" />
-            <element signature="e#4528#4529#0" expanded="true" />
-            <element signature="e#6668#6834#0" expanded="true" />
-            <element signature="e#6823#6824#0" expanded="true" />
             <element signature="e#7832#7841#0" expanded="true" />
             <element signature="e#8010#8019#0" expanded="true" />
           </folding>
