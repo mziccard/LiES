@@ -250,11 +250,17 @@ public class GenerateCSPPanel extends JPanel {
         return ArithmeticUtils.binomialCoefficient(n, k);
     }
 
+    /**
+     * Private class that models a constraint.
+     */
     private static class Constraint {
         public int[] coeffs;
         public int cterm;
     }
 
+    /**
+     * Private class that allows insertion of numeric characters only in a JTextField.
+     */
     private static class NumericDocumentFilter extends DocumentFilter {
 
         private int maxTextLength;
