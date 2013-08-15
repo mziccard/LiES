@@ -16,6 +16,6 @@ void solver_stats_t::tick() {
 }
 
 void solver_stats_t::print() {
-  log(DEBUG_LEVEL, NEW_LINE, "[Stats]\t Inspected nodes: %d\n", cycle_counter);
-  log(DEBUG_LEVEL, NEW_LINE, "[Stats]\t Execution time: %f\n", elapsed_time);
+  log(INFO_LEVEL, NEW_LINE, "[Stats]\t Inspected nodes: %d\n", cycle_counter);
+  log(INFO_LEVEL, NEW_LINE, "[Stats]\t Execution time: %f\n", elapsed_time);
 }

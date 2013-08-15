@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stdio.h>
+#include "utils.h"
 
 using namespace std;
 
@@ -37,9 +38,9 @@ class domain_t {
     void print() {
       vector<interval_t>::iterator interval;
       for (interval = intervals.begin(); interval != intervals.end(); interval++) {
-        printf("[%d, %d]", interval->l, interval->h);
+        log(DEBUG_LEVEL, INLINE, "[%d, %d]", interval->l, interval->h);
       }
-      printf("\n");
+      log(DEBUG_LEVEL, INLINE, "\n");
     }
 
     assignment_t select_assignment() {

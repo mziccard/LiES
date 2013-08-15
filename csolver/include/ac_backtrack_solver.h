@@ -25,6 +25,8 @@ class ac_backtrack_solver_t: public backtrack_solver_t {
 
     virtual void propagate();
 
+	virtual bool empty_domains();
+
     virtual bool solve(int* solutions);
 
     virtual bool solve_rec(int first, int* solutions);

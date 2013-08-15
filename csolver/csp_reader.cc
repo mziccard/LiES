@@ -7,6 +7,7 @@
 		FILE *fp = fopen(filename, "rb");
 		if (!fp) {
 			ERROR = 1;
+			return;
 		}
 	
 		fseek(fp, 0, SEEK_END);
@@ -35,7 +36,7 @@
 		CHECK_ERR
     if (root->type == JSON_OBJECT) {
 		for (json_value *it = root->first_child; it; it = it->next_sibling) {
-			if (strcmp(it->name, "vnum") && it->type == JSON_INT) {
+			if (it->name[0] == 'v' && it->name[1] == 'n' && it->type == JSON_INT) {
 				vnum = it->int_value;
 				return true;
 			}
@@ -50,7 +51,7 @@
     CHECK_ERR
 	  if (root->type == JSON_OBJECT) {
 		  for (json_value *it = root->first_child; it; it = it->next_sibling) {
-			  if (strcmp(it->name, "cnum") && it->type == JSON_INT) {
+			  if (it->name[0] == 'c' && it->name[1] == 'n' && it->type == JSON_INT) {
 				  cnum = it->int_value;
 				  return true;
 			  }

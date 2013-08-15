@@ -95,6 +95,15 @@ void ac_backtrack_solver_t::propagate() {
   }
 }
 
+bool ac_backtrack_solver_t::empty_domains() {
+  unsigned int i;
+  for (i = 0; i < csp.vnum; i++) {
+    domain_t& domain = csp.domains[i];
+    if (domain.is_empty()) { return true; }
+  }
+  return false;
+}
+
 bool ac_backtrack_solver_t::solve(int* solutions) {
   preprocess();
   stats.start_timer();
@@ -111,6 +120,9 @@ bool ac_backtrack_solver_t::solve_rec(int first, int* solutions) {
   bool solution_found = false;
 
   propagate();
+  if (empty_domains()) {
+    return false;
+  }
 
   log(DEBUG_LEVEL, NEW_LINE, "Inspecting variable %d, with domain: ", first);
   domain.print();
