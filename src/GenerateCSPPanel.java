@@ -9,6 +9,10 @@ import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
@@ -22,6 +26,8 @@ import java.util.Vector;
  * To change this template use File | Settings | File Templates.
  */
 public class GenerateCSPPanel extends JPanel {
+
+    private MainWindow parent;
 
     private JTextField nVariablesField;
     private JTextField maxArityField;
@@ -50,7 +56,14 @@ public class GenerateCSPPanel extends JPanel {
     private static final int PLUS = 2;
     private static final int MINUS = 1;
 
-    public GenerateCSPPanel() {
+    private String lastGeneratedCSP;
+
+    private JButton generateCSPButton;
+    private JButton saveGeneratedCSPButton;
+
+    public GenerateCSPPanel(final MainWindow parent) {
+        this.parent = parent;
+
         setLayout(new BorderLayout());
 
         nVariablesField = new JTextField(3);
@@ -154,23 +167,55 @@ public class GenerateCSPPanel extends JPanel {
         rightContainer.add(densityPanel);
         rightContainer.add(tightnessPanel);
 
-        JButton button = new JButton("Generate CSP");
-        button.addActionListener(new ActionListener() {
+        generateCSPButton = new JButton("Generate CSP");
+        generateCSPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                generateCSP();
+                lastGeneratedCSP = generateCSP();
+                parent.showCSP(lastGeneratedCSP);
+            }
+        });
+
+        saveGeneratedCSPButton = new JButton("Save CSP to file");
+        saveGeneratedCSPButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+                if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File file = chooser.getSelectedFile();
+                        if (!file.exists()) {
+                            file.createNewFile();
+                        }
+
+                        FileWriter writer = new FileWriter(file);
+
+                        writer.write(lastGeneratedCSP);
+                        writer.close();
+
+                        JOptionPane.showMessageDialog(GenerateCSPPanel.this, "CSP successfully exported to file.", "CSP exportation", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
             }
         });
 
         add(leftContainer, BorderLayout.WEST);
         add(rightContainer, BorderLayout.EAST);
-        add(button, BorderLayout.SOUTH);
+
+        JPanel buttonsContainer = new JPanel();
+        buttonsContainer.add(generateCSPButton);
+        buttonsContainer.add(saveGeneratedCSPButton);
+
+        add(buttonsContainer, BorderLayout.SOUTH);
 
         // initializing random generator
         random = new RandomDataGenerator();
     }
 
-    public void generateCSP() {
+    public String generateCSP() {
         int numberOfVariables = Integer.valueOf(nVariablesField.getText()).intValue();
         int maxArity = Integer.valueOf(maxArityField.getText()).intValue();
         int domainSize = Integer.valueOf(domainSizeField.getText()).intValue();
@@ -181,7 +226,7 @@ public class GenerateCSPPanel extends JPanel {
         Constraint[] constraints = new Constraint[numberOfConstraints];
 
         for (int i=0; i<numberOfConstraints; i++) {
-            int currentVarsNumber = random.nextInt(2, maxArity + 1); // k>=2 //TODO controllare che maxArity <= nVariables
+            int currentVarsNumber = random.nextInt(1, maxArity); // k>=2 //TODO controllare che maxArity <= nVariables
 
             Vector<Integer> variables = new Vector<Integer>();
             for (int j=0; j<numberOfVariables; j++) {
@@ -245,9 +290,9 @@ public class GenerateCSPPanel extends JPanel {
         root.add("cterms", linearizedCterms);
         root.add("domain", domains);
 
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        System.out.println("root is");
-        System.out.println(root);
+        return gson.toJson(root);
     }
 
     private long computeBinomialCoefficient(int n, int k) {

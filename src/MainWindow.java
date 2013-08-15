@@ -1,11 +1,8 @@
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +13,8 @@ import java.util.Random;
  */
 public class MainWindow extends JFrame {
 
-    private GenerateCSPPanel panel;
+    private final ShowCSPPanel showCSP;
+    private GenerateCSPPanel generateCSP;
 
     private JMenuBar menuBar;
     private JMenu firstMenu;
@@ -25,8 +23,11 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         setLayout(new BorderLayout());
 
-        panel = new GenerateCSPPanel();
-        add(panel, BorderLayout.CENTER);
+        generateCSP = new GenerateCSPPanel(this);
+        showCSP = new ShowCSPPanel(this);
+
+        add(generateCSP, BorderLayout.CENTER);
+        add(showCSP, BorderLayout.SOUTH);
 
         // initializing menus
 
@@ -45,6 +46,11 @@ public class MainWindow extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    public void showCSP(String csp) {
+        showCSP.setCSP(csp);
+        pack();
     }
 
     public static void main(String[] args) {
