@@ -60,6 +60,7 @@ public class GenerateCSPPanel extends JPanel {
 
     private JButton generateCSPButton;
     private JButton saveGeneratedCSPButton;
+    private JButton solveCSPButton;
 
     public GenerateCSPPanel(final MainWindow parent) {
         this.parent = parent;
@@ -171,8 +172,14 @@ public class GenerateCSPPanel extends JPanel {
         generateCSPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                lastGeneratedCSP = generateCSP();
-                parent.showCSP(lastGeneratedCSP);
+                if (nVariablesField.getText().equals("") || maxArityField.getText().equals("") || domainSizeField.getText().equals(""))
+                    JOptionPane.showMessageDialog(GenerateCSPPanel.this, "Please, fill in all the fields!");
+                else if (Integer.valueOf(nVariablesField.getText()).intValue() < Integer.valueOf(maxArityField.getText()).intValue())
+                    JOptionPane.showMessageDialog(GenerateCSPPanel.this, "Max arity cannot be greater than the number of variables");
+                else {
+                    lastGeneratedCSP = generateCSP();
+                    parent.showCSP(lastGeneratedCSP);
+                }
             }
         });
 
@@ -202,12 +209,21 @@ public class GenerateCSPPanel extends JPanel {
             }
         });
 
+        solveCSPButton = new JButton("Solve CSP");
+        solveCSPButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
         add(leftContainer, BorderLayout.WEST);
         add(rightContainer, BorderLayout.EAST);
 
         JPanel buttonsContainer = new JPanel();
         buttonsContainer.add(generateCSPButton);
         buttonsContainer.add(saveGeneratedCSPButton);
+        buttonsContainer.add(solveCSPButton);
 
         add(buttonsContainer, BorderLayout.SOUTH);
 

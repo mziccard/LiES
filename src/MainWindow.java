@@ -13,21 +13,50 @@ import java.text.ParseException;
  */
 public class MainWindow extends JFrame {
 
-    private final ShowCSPPanel showCSP;
-    private GenerateCSPPanel generateCSP;
+    private final CSPViewPanel showCSP;
+    private final GenerateCSPPanel generateCSP;
+    private final SolvingMethodChooserPanel methodPanel;
+    private final CSPSolutionPanel showSolution;
 
     private JMenuBar menuBar;
     private JMenu firstMenu;
     private JMenuItem createCSPMenuItem;
 
+    public enum SolverType {
+        BACKTRACK(0),
+        MC_BACKTRACK(1),
+        AC_BACKTRACK(2),
+        BRANCH_BOUND(3),
+        AC_BRANCH_BOUND(4);
+
+        int type;
+
+        SolverType (int type) {
+            this.type = type;
+        }
+
+        public int getValue() {
+            return type;
+        }
+    }
+
     public MainWindow() {
         setLayout(new BorderLayout());
 
         generateCSP = new GenerateCSPPanel(this);
-        showCSP = new ShowCSPPanel(this);
+        showCSP = new CSPViewPanel(this);
+        methodPanel = new SolvingMethodChooserPanel(this);
+        showSolution = new CSPSolutionPanel(this);
 
-        add(generateCSP, BorderLayout.CENTER);
-        add(showCSP, BorderLayout.SOUTH);
+        add(generateCSP, BorderLayout.NORTH);
+        add(methodPanel, BorderLayout.CENTER);
+
+        JPanel container = new JPanel();
+        container.setLayout(new BorderLayout());
+        container.add(showCSP, BorderLayout.WEST);
+        container.add(showSolution, BorderLayout.EAST);
+
+        add(container, BorderLayout.SOUTH);
 
         // initializing menus
 
@@ -50,6 +79,11 @@ public class MainWindow extends JFrame {
 
     public void showCSP(String csp) {
         showCSP.setCSP(csp);
+        pack();
+    }
+
+    public void showSolution(String solution) {
+        showSolution.displaySolution(solution);
         pack();
     }
 
