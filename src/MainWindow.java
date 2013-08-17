@@ -87,6 +87,11 @@ public class MainWindow extends JFrame {
         pack();
     }
 
+    public void solve(String csp) {
+        String solution = SolverWrapper.execute(csp);
+        showSolution(solution);
+    }
+
     public static void main(String[] args) {
 
         // setting new theme

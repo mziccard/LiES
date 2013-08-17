@@ -1,0 +1,172 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.0 (4/2/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} command for typesetting SI units
+
+\usepackage{graphicx} % Required for the inclusion of images
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{LiES \\ Linear Equations Solver \\ Sistemi con vincoli} % Title
+
+\author{Marco \textsc{Ziccardi}, Sebastiano \textsc{Gottardo}} % Author name
+
+\date{\today} % Date for the report
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+
+%\begin{center}
+%\begin{tabular}{l r}
+%Date Performed: & January 1, 2012 \\ % Date the experiment was performed
+%Partners: & Marco Ziccardi \\ % Partner names
+%& Sebastiano Gottardo \\
+%\end{tabular}
+%\end{center}
+
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Introduzione}
+\label{sec:introduzione}
+
+LiES (\textit{Linear Equations Solver}) e' un risolutore di sistemi di equazioni lineari, realizzato per il corso di Sistemi con Vincoli (A.A. 2012/2013). LiES permette all'utente di generare problemi di soddisfacimento di vincoli (CSP, \textit{Constraint Satisfaction Problems}) e di risolverli utilizzando diverse tecniche viste a lezione.\\
+
+Questo documento e' strutturato nel seguente modo: dopo aver illustrato le diverse funzionalita' di LiES nella Sezione~\ref{sec:funzionalita}, verranno descritte piu' dettagliatamente le tecniche di risoluzione del sistema nella Sezione~\ref{sec:strategie}. Infine la Sezione~\ref{sec:scelte_implementative} affrontera' alcuni dettagli implementativi che risultano piu' interessanti dal punto di vista della progettazione e della realizzazione.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Funzionalita'}
+\label{sec:funzionalita}
+
+LiES, come risolutore di sistemi di equazioni lineari, mette a disposizione un \textbf{generatore casuale} di problemi sulla base di alcuni parametri configurabili dall'utente (per chiarezza d'esposizione, d'ora in poi ci si riferira' a sistemi di equazioni lineari con CSP). La classe dei problemi casuali generati da LiES e' della forma:
+\begin{center}
+	\textit{B(k,n,d,$p_1$,$p_2$)}
+\end{center}
+
+dove:
+\begin{itemize}
+	\item k - indica l'arieta' (numero di variabili) che caratterizza ciascun vincolo
+	\item n - indica il numero di variabili
+	\item d - indica la grandezza di ciascun dominio
+	\item $p_1$ - indica la densita' del grafo di vincoli (ovvero, quanti vincoli rispetto al massimo)
+	\item $p_2$ - indica la strettezza dei vincoli (ovvero,	quante tuple sono proibite dai vincoli) 
+\end{itemize}
+
+A partire da questi parametri, il generatore casuale di LiES genera un'istanza di problema. Tale istanza viene elaborata e visualizzata sull'apposito pannello, mentre la versione originale e' memorizzata in formato JSON. E' altresi' possibile \textbf{esportare} un CSP su un file e \textbf{importare} un CSP precedentemente salvato; tuttavia, essendo questi CSP istanze casuali, riportare i parametri originali di creazione sarebbe superfluo e non interessante, pertanto tali parametri non vengono visualizzati.\\
+
+Infine, LiES permette di calcolare una soluzione (se esiste) per un dato sistema di equazioni lineari generato casualmente. La scelta sul metodo di risoluzione e' lasciata all'utente, che puo' scegliere tra le seguenti tecniche:
+\begin{itemize}
+	\item Backtrack
+	\item Bactrack, con variabile piu' vincolata
+	\item Backtrack, con consistenza sugli archi
+	\item Branch and bound
+	\item Branch and bound, con consistenza sugli archi
+\end{itemize}
+
+La soluzione del sistema di equazioni lineari, se esistente, viene visualizzata nell'apposito pannello.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Strategie di risoluzione}
+\label{sec:strategie}
+
+LiES mette a disposizione cinque diverse tecniche per risolvere i sistemi di equazioni lineari generati casualmente. Gli approcci che caratterizzano ciascuna strategia sono descritte nelle successive sezioni.
+
+\subsection{Backtrack}
+\label{sec:backtrack}
+
+\subsection{Backtrack, con variabile piu' vincolata}
+\label{sec:backtrack_mc}
+
+\subsection{Backtrack, con consistenza sugli archi}
+\label{sec:backtrack_ac}
+
+\subsection{Branch and bound}
+\label{sec:branch_and_bound}
+
+\subsection{Branch and bound, con consistenza sugli archi}
+\label{sec:branch_and_bound_ac}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 4
+%----------------------------------------------------------------------------------------
+
+\section{Scelte implementative}
+\label{sec:scelte_implementative}
+
+LiES e' stato progettato per essere al tempo stesso performante e graficamente gradevole. Questi requisiti hanno portato ad un approccio ibrido per quanto riguarda i linguaggi di programmazione ed i framework utilizzati. Il risolutore e' stato scritto utilizzando il \textbf{linguaggio C} a causa della sua estrema efficienza in termini di calcolo puro. Inoltre, grazie ad elementi come le \verb+struct+, e' possibile avere una modellazione simil-object-oriented senza pero' introdurre maggiore complessita' di calcolo.\\
+
+Per quanto riguarda la User Interface (UI), la scelta e' invece ricaduta sul \textbf{linguaggio Java}, che grazie alle librerie grafiche \textit{Swing} e \textit{AWT} permette di creare interfacce grafiche il cui aspetto e' indipendente dalla piattaforma d'esecuzione e pertanto mantiene la stessa esperienza d'uso.\\
+
+Ad ogni modo, i linguaggi Java e C non sono interoperabili, richiedendo quindi una soluzione che permettesse una comunicazione bi-direzionale tra la UI e il risolutore. Sono state prese in considerazione due alternative:
+\begin{itemize}
+	\item JNI (\textit{Java Native Interface}) - si tratta di un framework che permette ad applicazioni Java di chiamare (ed essere chiamate da) codice nativo, in questo caso codice C
+	\item Runtime execution - e' possibile invocare comandi \"nativi\" (i.e., propri del sistema operativo) direttamente dalla runtime di Java
+\end{itemize}
+
+Nonostante JNI offra un meccanismo molto valido per l'invocazione di codice nativo, la scelta e' ricaduta sulla seconda opzione, piu' semplice ed immediata.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 5
+%----------------------------------------------------------------------------------------
+
+\section{Requisiti di funzionamento}
+\label{sec:requisiti_funzionamento}
+
+In base a quanto riportato in Sezione~\ref{sec:scelte_implementative}, vi sono due requisiti fondamentali affinche' LiES funzioni correttamente, riportati di seguito:
+\begin{itemize}
+	\item Presenza di una JVM/JRE - in altre parole, il sistema operativo deve essere in grado di eseguire applicazioni Java
+	\item Presenza di un compilatore C - in maniera tale da poter compilare il risolutore
+\end{itemize}
+
+Come descritto dal manuale utente, uno script si occupera' di automatizzare il processo di compilazione del risolutore, gia' reso molto semplice dalla presenza di un \verb+makefile+.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 6
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document}

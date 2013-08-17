@@ -9,13 +9,9 @@ import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Random;
 import java.util.Vector;
 
 /**
@@ -27,6 +23,7 @@ import java.util.Vector;
  */
 public class GenerateCSPPanel extends JPanel {
 
+    private final JButton loadCSPButton;
     private MainWindow parent;
 
     private JTextField nVariablesField;
@@ -52,9 +49,6 @@ public class GenerateCSPPanel extends JPanel {
     private JPanel rightContainer;
 
     private final RandomDataGenerator random;
-
-    private static final int PLUS = 2;
-    private static final int MINUS = 1;
 
     private String lastGeneratedCSP;
 
@@ -183,6 +177,37 @@ public class GenerateCSPPanel extends JPanel {
             }
         });
 
+        loadCSPButton = new JButton("Load CSP from file");
+        loadCSPButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+                if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File f = chooser.getSelectedFile();
+                        BufferedReader reader = new BufferedReader(new FileReader(f));
+
+                        String line;
+                        StringBuffer content = new StringBuffer();
+
+                        while ((line = reader.readLine()) != null) {
+                            content.append(line);
+                        }
+
+                        reader.close();
+
+                        lastGeneratedCSP = content.toString();
+                        resetFields();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (IOException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+            }
+        });
+
         saveGeneratedCSPButton = new JButton("Save CSP to file");
         saveGeneratedCSPButton.addActionListener(new ActionListener() {
             @Override
@@ -213,22 +238,49 @@ public class GenerateCSPPanel extends JPanel {
         solveCSPButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                if (lastGeneratedCSP != null && !lastGeneratedCSP.isEmpty())
+                    parent.solve(lastGeneratedCSP);
+                else
+                    JOptionPane.showMessageDialog(GenerateCSPPanel.this, "Generate a random CSP first!");
             }
         });
 
         add(leftContainer, BorderLayout.WEST);
         add(rightContainer, BorderLayout.EAST);
 
+        JPanel leftButtonsContainer = new JPanel();
+        leftButtonsContainer.setBorder(BorderFactory.createTitledBorder("Generation"));
+        leftButtonsContainer.add(generateCSPButton);
+
+        JPanel centerButtonsContainer = new JPanel();
+        centerButtonsContainer.setBorder(BorderFactory.createTitledBorder("Save/Load CSP"));
+        centerButtonsContainer.add(loadCSPButton);
+        centerButtonsContainer.add(saveGeneratedCSPButton);
+
+        JPanel rightButtonsContainer = new JPanel();
+        rightButtonsContainer.setBorder(BorderFactory.createTitledBorder("Solution"));
+        rightButtonsContainer.add(solveCSPButton);
+
         JPanel buttonsContainer = new JPanel();
-        buttonsContainer.add(generateCSPButton);
-        buttonsContainer.add(saveGeneratedCSPButton);
-        buttonsContainer.add(solveCSPButton);
+        buttonsContainer.setLayout(new FlowLayout());
+
+        buttonsContainer.add(leftButtonsContainer);
+        buttonsContainer.add(centerButtonsContainer);
+        buttonsContainer.add(rightButtonsContainer);
 
         add(buttonsContainer, BorderLayout.SOUTH);
 
         // initializing random generator
         random = new RandomDataGenerator();
+    }
+
+    private void resetFields() {
+        nVariablesField.setText("");
+        maxArityField.setText("");
+        domainSizeField.setText("");
+
+        densitySlider.setValue(50);
+        tightnessSlider.setValue(50);
     }
 
     public String generateCSP() {
