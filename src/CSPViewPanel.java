@@ -60,7 +60,7 @@ public class CSPViewPanel extends JPanel {
             for (int j=0; j<nVars; j++) {
                 int coeff = coeffs.get(i * nVars + j).getAsInt();
                 if (coeff > 0) {
-                    constraint = constraint.concat("x" + (j + 1) + " + ");
+                    constraint = constraint.concat(coeff + " * x" + (j + 1) + " + ");
                 }
             }
 
