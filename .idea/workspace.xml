@@ -5,7 +5,7 @@
     <ignored path="SistemiConVincoli.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/MainWindow.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376661964104" ignored="false" />
-    <file path="/GenerateCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376743946181" ignored="false" />
+    <file path="/GenerateCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376748972140" ignored="false" />
     <file path="/fragment.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375792966258" ignored="false" />
     <file path="$PROJECT_DIR$/libs/syntheticaBlackStar.jar!/de/javasoft/plaf/synthetica/blackstar/xml/synth.xml" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375218133013" ignored="false" />
     <file path="/ShowCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376077454878" ignored="false" />
@@ -94,19 +94,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenerateCSPPanel.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GenerateCSPPanel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="276" column="28" selection-start="11882" selection-end="11882" vertical-scroll-proportion="0.0">
+            <state line="369" column="57" selection-start="15470" selection-end="15470" vertical-scroll-proportion="0.5296736">
               <folding>
                 <element signature="e#6880#7677#0" expanded="true" />
                 <element signature="e#7666#7667#0" expanded="true" />
-                <element signature="e#7780#9038#0" expanded="true" />
-                <element signature="e#9027#9028#0" expanded="true" />
-                <element signature="e#9157#10215#0" expanded="true" />
-                <element signature="e#10204#10205#0" expanded="true" />
-                <element signature="e#10311#10702#0" expanded="true" />
-                <element signature="e#10691#10692#0" expanded="true" />
+                <element signature="e#7780#9060#0" expanded="true" />
+                <element signature="e#9049#9050#0" expanded="true" />
+                <element signature="e#9179#10237#0" expanded="true" />
+                <element signature="e#10226#10227#0" expanded="true" />
+                <element signature="e#10333#10724#0" expanded="true" />
+                <element signature="e#10713#10714#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -115,7 +115,7 @@
       <file leaf-file-name="CSPViewPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CSPViewPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="0" selection-start="2181" selection-end="2217" vertical-scroll-proportion="0.0">
+            <state line="48" column="30" selection-start="1326" selection-end="1326" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#CSPViewPanel#0" expanded="false" />
@@ -135,10 +135,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SolvingMethodChooserPanel.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SolvingMethodChooserPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SolvingMethodChooserPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="37" selection-start="1360" selection-end="1360" vertical-scroll-proportion="1.171875">
+            <state line="30" column="47" selection-start="930" selection-end="930" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,6 +161,7 @@
         <option value="$PROJECT_DIR$/src/SolverWrapper.java" />
         <option value="$PROJECT_DIR$/src/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/CSPSolutionPanel.java" />
+        <option value="$PROJECT_DIR$/src/CSPViewPanel.java" />
         <option value="$PROJECT_DIR$/src/GenerateCSPPanel.java" />
       </list>
     </option>
@@ -387,7 +388,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="0" width="1446" height="877" extended-state="7" />
+    <frame x="-3" y="0" width="1446" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -404,7 +405,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2482066" sideWeight="0.6743869" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32561308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880434" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -483,12 +484,12 @@
           <folding>
             <element signature="e#6880#7677#0" expanded="true" />
             <element signature="e#7666#7667#0" expanded="true" />
-            <element signature="e#7780#9038#0" expanded="true" />
-            <element signature="e#9027#9028#0" expanded="true" />
-            <element signature="e#9157#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
-            <element signature="e#10311#10702#0" expanded="true" />
-            <element signature="e#10691#10692#0" expanded="true" />
+            <element signature="e#7780#9060#0" expanded="true" />
+            <element signature="e#9049#9050#0" expanded="true" />
+            <element signature="e#9179#10237#0" expanded="true" />
+            <element signature="e#10226#10227#0" expanded="true" />
+            <element signature="e#10333#10724#0" expanded="true" />
+            <element signature="e#10713#10714#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -506,12 +507,12 @@
           <folding>
             <element signature="e#6880#7677#0" expanded="true" />
             <element signature="e#7666#7667#0" expanded="true" />
-            <element signature="e#7780#9038#0" expanded="true" />
-            <element signature="e#9027#9028#0" expanded="true" />
-            <element signature="e#9157#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
-            <element signature="e#10311#10702#0" expanded="true" />
-            <element signature="e#10691#10692#0" expanded="true" />
+            <element signature="e#7780#9060#0" expanded="true" />
+            <element signature="e#9049#9050#0" expanded="true" />
+            <element signature="e#9179#10237#0" expanded="true" />
+            <element signature="e#10226#10227#0" expanded="true" />
+            <element signature="e#10333#10724#0" expanded="true" />
+            <element signature="e#10713#10714#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -529,12 +530,12 @@
           <folding>
             <element signature="e#6880#7677#0" expanded="true" />
             <element signature="e#7666#7667#0" expanded="true" />
-            <element signature="e#7780#9038#0" expanded="true" />
-            <element signature="e#9027#9028#0" expanded="true" />
-            <element signature="e#9157#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
-            <element signature="e#10311#10702#0" expanded="true" />
-            <element signature="e#10691#10692#0" expanded="true" />
+            <element signature="e#7780#9060#0" expanded="true" />
+            <element signature="e#9049#9050#0" expanded="true" />
+            <element signature="e#9179#10237#0" expanded="true" />
+            <element signature="e#10226#10227#0" expanded="true" />
+            <element signature="e#10333#10724#0" expanded="true" />
+            <element signature="e#10713#10714#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -552,12 +553,12 @@
           <folding>
             <element signature="e#6880#7677#0" expanded="true" />
             <element signature="e#7666#7667#0" expanded="true" />
-            <element signature="e#7780#9038#0" expanded="true" />
-            <element signature="e#9027#9028#0" expanded="true" />
-            <element signature="e#9157#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
-            <element signature="e#10311#10702#0" expanded="true" />
-            <element signature="e#10691#10692#0" expanded="true" />
+            <element signature="e#7780#9060#0" expanded="true" />
+            <element signature="e#9049#9050#0" expanded="true" />
+            <element signature="e#9179#10237#0" expanded="true" />
+            <element signature="e#10226#10227#0" expanded="true" />
+            <element signature="e#10333#10724#0" expanded="true" />
+            <element signature="e#10713#10714#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -579,16 +580,6 @@
         <state line="81" column="0" selection-start="6197" selection-end="6197" vertical-scroll-proportion="0.8013245" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CSPViewPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="0" selection-start="2181" selection-end="2217" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#CSPViewPanel#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SolverWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="28" selection-start="992" selection-end="992" vertical-scroll-proportion="0.0">
@@ -605,22 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="276" column="28" selection-start="11882" selection-end="11882" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#6880#7677#0" expanded="true" />
-            <element signature="e#7666#7667#0" expanded="true" />
-            <element signature="e#7780#9038#0" expanded="true" />
-            <element signature="e#9027#9028#0" expanded="true" />
-            <element signature="e#9157#10215#0" expanded="true" />
-            <element signature="e#10204#10205#0" expanded="true" />
-            <element signature="e#10311#10702#0" expanded="true" />
-            <element signature="e#10691#10692#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CSPSolutionPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="5" selection-start="1250" selection-end="1250" vertical-scroll-proportion="0.0">
@@ -632,9 +607,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SolvingMethodChooserPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="37" selection-start="1360" selection-end="1360" vertical-scroll-proportion="1.171875">
+        <state line="30" column="47" selection-start="930" selection-end="930" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CSPViewPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="30" selection-start="1326" selection-end="1326" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#CSPViewPanel#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="369" column="57" selection-start="15470" selection-end="15470" vertical-scroll-proportion="0.5296736">
+          <folding>
+            <element signature="e#6880#7677#0" expanded="true" />
+            <element signature="e#7666#7667#0" expanded="true" />
+            <element signature="e#7780#9060#0" expanded="true" />
+            <element signature="e#9049#9050#0" expanded="true" />
+            <element signature="e#9179#10237#0" expanded="true" />
+            <element signature="e#10226#10227#0" expanded="true" />
+            <element signature="e#10333#10724#0" expanded="true" />
+            <element signature="e#10713#10714#0" expanded="true" />
           </folding>
         </state>
       </provider>

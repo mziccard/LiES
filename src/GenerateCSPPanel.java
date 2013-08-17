@@ -196,7 +196,7 @@ public class GenerateCSPPanel extends JPanel {
 
                         reader.close();
 
-                        lastGeneratedCSP = content.toString();
+                        lastGeneratedCSP = content.toString().replace("\\\"", "\"");
                         resetFields();
 
                     } catch (FileNotFoundException e) {
@@ -360,7 +360,10 @@ public class GenerateCSPPanel extends JPanel {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        return gson.toJson(root);
+        String output = gson.toJson(root);
+        output = output.replace("\"","\\\"");
+
+        return output;
     }
 
     private long computeBinomialCoefficient(int n, int k) {
