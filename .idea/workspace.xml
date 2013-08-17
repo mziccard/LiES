@@ -5,7 +5,7 @@
     <ignored path="SistemiConVincoli.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/MainWindow.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376661964104" ignored="false" />
-    <file path="/GenerateCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376748972140" ignored="false" />
+    <file path="/GenerateCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376751814047" ignored="false" />
     <file path="/fragment.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375792966258" ignored="false" />
     <file path="$PROJECT_DIR$/libs/syntheticaBlackStar.jar!/de/javasoft/plaf/synthetica/blackstar/xml/synth.xml" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1375218133013" ignored="false" />
     <file path="/ShowCSPPanel.java" changelist="8dca4d7b-d80c-44c7-a5b1-03b7c34294d6" time="1376077454878" ignored="false" />
@@ -95,10 +95,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenerateCSPPanel.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="GenerateCSPPanel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="198" column="42" selection-start="8530" selection-end="8615" vertical-scroll-proportion="0.0">
+            <state line="359" column="0" selection-start="15163" selection-end="15163" vertical-scroll-proportion="0.37241378">
               <folding>
                 <element signature="e#6880#7677#0" expanded="true" />
                 <element signature="e#7666#7667#0" expanded="true" />
@@ -113,10 +113,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CSPViewPanel.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CSPViewPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CSPViewPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="41" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.734375">
+            <state line="56" column="35" selection-start="1635" selection-end="1635" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#CSPViewPanel#0" expanded="false" />
@@ -162,8 +162,8 @@
         <option value="$PROJECT_DIR$/src/SolverWrapper.java" />
         <option value="$PROJECT_DIR$/src/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/CSPSolutionPanel.java" />
-        <option value="$PROJECT_DIR$/src/GenerateCSPPanel.java" />
         <option value="$PROJECT_DIR$/src/CSPViewPanel.java" />
+        <option value="$PROJECT_DIR$/src/GenerateCSPPanel.java" />
       </list>
     </option>
   </component>
@@ -615,9 +615,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CSPViewPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="35" selection-start="1635" selection-end="1635" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#CSPViewPanel#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GenerateCSPPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="42" selection-start="8530" selection-end="8615" vertical-scroll-proportion="0.0">
+        <state line="359" column="0" selection-start="15163" selection-end="15163" vertical-scroll-proportion="0.37241378">
           <folding>
             <element signature="e#6880#7677#0" expanded="true" />
             <element signature="e#7666#7667#0" expanded="true" />
@@ -627,16 +637,6 @@
             <element signature="e#10226#10227#0" expanded="true" />
             <element signature="e#10333#10724#0" expanded="true" />
             <element signature="e#10713#10714#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CSPViewPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="41" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.734375">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#CSPViewPanel#0" expanded="false" />
           </folding>
         </state>
       </provider>

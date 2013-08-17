@@ -358,7 +358,8 @@ public class GenerateCSPPanel extends JPanel {
         root.add("cterms", linearizedCterms);
         root.add("domain", domains);
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().create();
 
         String output = gson.toJson(root);
         output = output.replace("\"","\\\"");
