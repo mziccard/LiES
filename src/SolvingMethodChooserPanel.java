@@ -16,6 +16,7 @@ public class SolvingMethodChooserPanel extends JPanel {
     private final JRadioButton backtrackACButton;
     private final JRadioButton branchAndBoundButton;
     private final JRadioButton branchAndBoundACButton;
+    private final ButtonGroup group;
 
     public SolvingMethodChooserPanel(MainWindow parent) {
         this.parent = parent;
@@ -37,7 +38,7 @@ public class SolvingMethodChooserPanel extends JPanel {
         branchAndBoundACButton = new JRadioButton();
         branchAndBoundACButton.setText("Branch and bound (arc consistency)");
 
-        ButtonGroup group = new ButtonGroup();
+        group = new ButtonGroup();
         group.add(backtrackButton);
         group.add(backtrackMCButton);
         group.add(backtrackACButton);
@@ -53,6 +54,21 @@ public class SolvingMethodChooserPanel extends JPanel {
         add(branchAndBoundACButton);
     }
 
+    public MainWindow.SolverType getMethod() {
+        MainWindow.SolverType method = null;
 
+        if (backtrackButton.isSelected())
+            method = MainWindow.SolverType.BACKTRACK;
+        else if (backtrackMCButton.isSelected())
+            method = MainWindow.SolverType.MC_BACKTRACK;
+        else if (backtrackACButton.isSelected())
+            method = MainWindow.SolverType.AC_BACKTRACK;
+        else if (branchAndBoundButton.isSelected())
+            method = MainWindow.SolverType.BRANCH_BOUND;
+        else
+            method = MainWindow.SolverType.AC_BRANCH_BOUND;
+
+        return method;
+    }
 
 }

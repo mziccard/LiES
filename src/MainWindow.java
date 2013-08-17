@@ -88,7 +88,8 @@ public class MainWindow extends JFrame {
     }
 
     public void solve(String csp) {
-        String solution = SolverWrapper.execute(csp);
+        SolverType method = methodPanel.getMethod();
+        String solution = SolverWrapper.execute(csp, method.getValue());
         showSolution(solution);
     }
 

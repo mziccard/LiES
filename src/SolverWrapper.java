@@ -1,6 +1,6 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,25 +11,39 @@ import java.io.InputStreamReader;
  */
 public class SolverWrapper {
 
-    private static final String solverPath = "";
-
-    public static String execute(String csp) {
+    public static String execute(String csp, int method) {
         try {
-            String[] cmdList = {solverPath + "/solver", "\"" + csp + "\""};
-            Process p = Runtime.getRuntime().exec(cmdList);
+            File f = new File("solver.out");
+            Process p = new ProcessBuilder(f.getAbsolutePath(), "\"" + csp + "\"", "-resolution-mode " + method).start();
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line = "";
             StringBuffer output = new StringBuffer();
 
+            System.out.println("<OUTPUT>");
             while ((line = reader.readLine()) != null) {
+                System.out.println("Line: " + line);
                 output.append(line);
             }
+            System.out.println("</OUTPUT>");
+            reader.close();
+
+            int exitVal = p.waitFor();
+            System.out.println("Process exitValue: " + exitVal);
+
+            reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
+            line = null;
+            while ((line = reader.readLine()) != null)
+                System.out.println("Error: " + line);
 
             reader.close();
 
             return output.toString();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

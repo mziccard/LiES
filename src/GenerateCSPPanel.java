@@ -270,6 +270,10 @@ public class GenerateCSPPanel extends JPanel {
 
         add(buttonsContainer, BorderLayout.SOUTH);
 
+        nVariablesField.setText("5");
+        maxArityField.setText("3");
+        domainSizeField.setText("10");
+
         // initializing random generator
         random = new RandomDataGenerator();
     }
