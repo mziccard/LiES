@@ -43,9 +43,9 @@ public class CSPViewPanel extends JPanel {
     }
 
     public void setCSP(String csp) {
-        lastCSP = csp;
+        lastCSP = csp.toString().replace("\\\"", "\"");
 
-        JsonObject root = new JsonParser().parse(csp).getAsJsonObject();
+        JsonObject root = new JsonParser().parse(lastCSP).getAsJsonObject();
         int nVars = root.get("vnum").getAsInt();
         int nCons = root.get("cnum").getAsInt();
 
