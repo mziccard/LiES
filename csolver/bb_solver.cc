@@ -42,16 +42,16 @@ using namespace std;
       return true;
     }
   
-    domain_t domain = csp.domains[first];
+    domain_t& domain = csp.domains[first];
     domain_t backup_domain = domain.deep_copy();
 
     while (!domain.is_empty()) {
       log(DEBUG_LEVEL, NEW_LINE, "Entered while for variable %d\n", first);
-      // Select and perform assignment
-      assignment_t assignment = domain.select_assignment();
-      domain.perform_assignment(assignment);
+		// Select and perform assignment
+		assignment_t assignment = domain.select_assignment();
+		domain.perform_assignment(assignment);
 
-      log(DEBUG_LEVEL, NEW_LINE, "Found and performed assignment for variable %d\n", first);
+      log(DEBUG_LEVEL, NEW_LINE, "Found and performed assignment for variable %d = %d\n", first, assignment.value);
 
       solutions[first] = assignment.value;
       assigned_variables[first] = 1;

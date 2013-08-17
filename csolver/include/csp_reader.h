@@ -14,7 +14,9 @@ private:
 
 public:
 	
-	csp_reader_t(const char* file_name);
+	csp_reader_t(const char* filename, int id);
+
+	csp_reader_t(char* input_string);
 
 	bool read_error();
 

@@ -2,7 +2,7 @@
 
 #define CHECK_ERR if (ERROR) { return false; }
 
-	csp_reader_t::csp_reader_t(const char* filename) : ERROR(0) {
+	csp_reader_t::csp_reader_t(const char* filename, int id) : ERROR(0) {
 
 		FILE *fp = fopen(filename, "rb");
 		if (!fp) {
@@ -27,6 +27,17 @@
       ERROR = 1;
     }
 	}
+
+  csp_reader_t::csp_reader_t(char* input_string) {
+		char *errorPos = 0;
+		char *errorDesc = 0;
+		int errorLine = 0;
+		block_allocator allocator(1 << 10);
+		root = json_parse(input_string, &errorPos, &errorDesc, &errorLine, &allocator);
+    if (!root) {
+      ERROR = 1;
+    }
+  }
 
   bool csp_reader_t::read_error() {
     return ERROR;

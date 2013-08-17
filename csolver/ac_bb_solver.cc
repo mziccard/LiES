@@ -23,7 +23,7 @@ using namespace std;
   }
 
   bool ac_bb_solver_t::solve(int* solutions) {
-	preprocess();
+	  preprocess();
     stats.start_timer();
     solve_rec(0, solutions);
     stats.stop_timer();
@@ -43,10 +43,16 @@ using namespace std;
       return true;
     }
   
-    domain_t domain = csp.domains[first];
+    domain_t& domain = csp.domains[first];
     domain_t backup_domain = domain.deep_copy();
 
-	propagate();
+	  propagate();
+	  if (empty_domains()) {
+    	return false;
+  	}
+  
+    log(DEBUG_LEVEL, NEW_LINE, "Inspecting variable %d, with domain: ", first);
+    domain.print();
 
     while (!domain.is_empty()) {
       log(DEBUG_LEVEL, NEW_LINE, "Entered while for variable %d\n", first);
@@ -54,7 +60,7 @@ using namespace std;
       assignment_t assignment = domain.select_assignment();
       domain.perform_assignment(assignment);
 
-      log(DEBUG_LEVEL, NEW_LINE, "Found and performed assignment for variable %d\n", first);
+      log(DEBUG_LEVEL, NEW_LINE, "Found and performed assignment for variable %d = %d\n", first, assignment.value);
 
       solutions[first] = assignment.value;
       assigned_variables[first] = 1;
@@ -81,7 +87,6 @@ using namespace std;
           solve_rec(first+1, solutions);
         }
       }
-      assigned_variables[first] = 0;
 	    domain.revert_assignment(assignment);
     }
 
