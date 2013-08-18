@@ -14,7 +14,7 @@ public class SolverWrapper {
     public static String execute(String csp, int method) {
         try {
             File f = new File("solver.out");
-            Process p = new ProcessBuilder(f.getAbsolutePath(), "\"" + csp + "\"", "-resolution-mode " + method).start();
+            Process p = new ProcessBuilder(f.getAbsolutePath(), csp, "-resolution-mode", ""+method).start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line = "";

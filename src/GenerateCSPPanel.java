@@ -366,7 +366,7 @@ public class GenerateCSPPanel extends JPanel {
         Gson gson = new GsonBuilder().create();
 
         String output = gson.toJson(root);
-        output = output.replace("\"","\\\"");
+        //output = output.replace("\"","\\\"");
 
         return output;
     }
