@@ -71,6 +71,7 @@ public class MainWindow extends JFrame {
         setJMenuBar(menuBar);
 
         pack();
+        setTitle("LiES");
         setLocationByPlatform(true);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

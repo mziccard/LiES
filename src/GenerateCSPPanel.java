@@ -196,8 +196,10 @@ public class GenerateCSPPanel extends JPanel {
 
                         reader.close();
 
-                        lastGeneratedCSP = content.toString().replace("\\\"", "\"");
+                        lastGeneratedCSP = content.toString();
+
                         resetFields();
+                        parent.showCSP(lastGeneratedCSP);
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -222,7 +224,10 @@ public class GenerateCSPPanel extends JPanel {
 
                         FileWriter writer = new FileWriter(file);
 
-                        writer.write(lastGeneratedCSP);
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        JsonElement root = new JsonParser().parse(lastGeneratedCSP);
+
+                        writer.write(gson.toJson(root));
                         writer.close();
 
                         JOptionPane.showMessageDialog(GenerateCSPPanel.this, "CSP successfully exported to file.", "CSP exportation", JOptionPane.INFORMATION_MESSAGE);
@@ -362,11 +367,9 @@ public class GenerateCSPPanel extends JPanel {
         root.add("cterms", linearizedCterms);
         root.add("domain", domains);
 
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Gson gson = new GsonBuilder().create();
 
         String output = gson.toJson(root);
-        //output = output.replace("\"","\\\"");
 
         return output;
     }

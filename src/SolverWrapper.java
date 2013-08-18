@@ -13,37 +13,22 @@ public class SolverWrapper {
 
     public static String execute(String csp, int method) {
         try {
-            File f = new File("solver.out");
-            Process p = new ProcessBuilder(f.getAbsolutePath(), csp, "-resolution-mode", ""+method).start();
+            File f = new File("solver");
+            Process p = new ProcessBuilder(f.getAbsolutePath(), csp, "-resolution-mode", "" + method).start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = "";
+            String line;
             StringBuffer output = new StringBuffer();
 
-            System.out.println("<OUTPUT>");
             while ((line = reader.readLine()) != null) {
-                System.out.println("Line: " + line);
-                output.append(line);
+                output.append(line + "\n");
             }
-            System.out.println("</OUTPUT>");
-            reader.close();
-
-            int exitVal = p.waitFor();
-            System.out.println("Process exitValue: " + exitVal);
-
-            reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
-            line = null;
-            while ((line = reader.readLine()) != null)
-                System.out.println("Error: " + line);
 
             reader.close();
 
             return output.toString();
 
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
