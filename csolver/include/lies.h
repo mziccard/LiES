@@ -93,11 +93,13 @@ void solve(char* input, int resolution_type, int file) {
       log(INFO_LEVEL, INLINE, "x%d = %d ", i, solutions[i]);
     }
     log(INFO_LEVEL, INLINE, "\n");
+  } else {
+    log(INFO_LEVEL, NEW_LINE, "FAILED");
   }
 		
   delete solver;
   delete csp_reader;
-	return;		
+  return;		
 }
 
 #endif /* LIES_H */
