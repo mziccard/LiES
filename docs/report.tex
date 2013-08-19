@@ -19,12 +19,100 @@
 %	PACKAGES AND DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass{article}
+\documentclass[10pt, a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+%\usepackage{anysize}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{bera}% optional: just to have a nice mono-spaced font
+\usepackage{listings}
+\usepackage{xcolor}
 
-\usepackage{mhchem} % Package for chemical equation typesetting
-\usepackage{siunitx} % Provides the \SI{}{} command for typesetting SI units
-\usepackage{hyperref}
-\usepackage{graphicx} % Required for the inclusion of images
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\hypersetup{
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    %urlcolor=[rgb]{0.45, 0, 0}           % color of external links
+}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\usepackage{listings}
+\lstset{ %
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}
+  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  %frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=t,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                   % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},          % keyword style
+  commentstyle=\color{dkgreen},       % comment style
+  stringstyle=\color{mauve},         % string literal style
+  escapeinside={\%*}{*)},            % if you want to add a comment within your code
+  morekeywords={*,...}               % if you want to add more keywords to the set
+}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    %frame=lines,
+    %backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
@@ -36,9 +124,20 @@
 %	DOCUMENT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title{LiES \\ Linear Equations Solver \\ Sistemi con vincoli} % Title
+\title{
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.6]{./common-images/unipd_logo.pdf}
+\end{center}
+\end{figure}
+LiES \\ Linear Equations Solver \\ Sistemi con vincoli \\\vspace{10mm} \textbf{Relazione}\\\vspace{0.4cm}
+\Large{Anno Accademico 2012/2013}}
 
-\author{Marco \textsc{Ziccardi}, Sebastiano \textsc{Gottardo}} % Author name
+\author{Sebastiano Gottardo, Marco Ziccardi\\
+Corso di studi in Informatica\\
+Dipartimento di Matematica\\
+Università degli Studi di Padova\\
+Email: dextorer@gmail.com, marco.ziccard@gmail.com }
 
 \date{\today} % Date for the report
 
@@ -95,7 +194,20 @@ dove:
 	\item $p_2$ - indica la strettezza dei vincoli (ovvero,	quante tuple sono proibite dai vincoli) 
 \end{itemize}
 
-A partire da questi parametri, il generatore casuale di LiES genera un'istanza di problema. Tale istanza viene elaborata e visualizzata sull'apposito pannello, mentre la versione originale e' memorizzata in formato JSON. E' altresi' possibile \textbf{esportare} un CSP su un file e \textbf{importare} un CSP precedentemente salvato; tuttavia, essendo questi CSP istanze casuali, riportare i parametri originali di creazione sarebbe superfluo e non interessante, pertanto tali parametri non vengono visualizzati.\\
+A partire da questi parametri, il generatore casuale di LiES genera un'istanza di problema. Tale istanza viene elaborata e visualizzata sull'apposito pannello, mentre la versione originale e' memorizzata in formato JSON (si veda listato \ref{lst:json} per un esempio).
+
+\begin{lstlisting}[language=json, caption=Rappresentazione in formato json di un sistema di equazioni lineari, label=lst:json]
+{
+	"vnum": 	3,
+	"cnum":		3,
+	"coeffs": 	[1, 0, 1, 1, 0, 1, 0, 1, 0],
+	"cterms":	[10, 10, 5],
+	"domains":	[[-10, 10], [0, 10], [0, 10]]
+}
+\end{lstlisting}
+
+
+E' altresi' possibile \textbf{esportare} un CSP su un file e \textbf{importare} un CSP precedentemente salvato; tuttavia, essendo questi CSP istanze casuali, riportare i parametri originali di creazione sarebbe superfluo e non interessante, pertanto tali parametri non vengono visualizzati.\\
 
 Infine, LiES permette di calcolare una soluzione (se esiste) per un dato sistema di equazioni lineari generato casualmente. La scelta sul metodo di risoluzione e' lasciata all'utente, che puo' scegliere tra le seguenti tecniche:
 \begin{itemize}
@@ -120,11 +232,200 @@ LiES mette a disposizione cinque diverse tecniche per risolvere i sistemi di equ
 \subsection{Backtrack}
 \label{sec:backtrack}
 
+La prima strategia di risoluzione disponibile è la ricerca \textit{forward checking} con \textit{backtrack}. La strategia in questione costruisce per mezzo di una funzione ricorsiva l'albero di \textit{labeling} associato al problema da risolvere. L'albero di \textit{labeling} costruito è del tipo ridotto. Un albero di \textit{labeling} ridotto necessita di un ordinamento $x_1, ..., x_n$ delle variabili del problema e viene costruito rispettando le seguenti regole:
+
+\begin{itemize}
+	\item I discendenti diretti della radice sono della forma $(x_1, d)$, ovvero partendo dal CSP originario associano un valore alla prima variabile nell'~ordinamento selezionato
+	\item I discendenti diretti di un nodo $(x_j, d)$ per $i \in \left [ 1, n-1 \right ]$ sono della forma $(x_{j+1}, d)$
+	\item I suoi rami determinano tutte le istanziazioni consistenti secondo l'~ordinamento $x_1, ..., x_n$ 
+\end{itemize}
+
+in questo caso nessuna tecnica di propagazione di vincoli viene utilizzata. La funzione ricorsiva responsabile per la costruzione dell'albero e ricerca di una soluzione è riportata nel listato \ref{lst:backtrack}.
+
+\begin{lstlisting}[language=C++, caption=Funzione \texttt{solve\_rec} per la risoluzione \textit{backtrack}, label=lst:backtrack]
+bool backtrack_solver_t::solve_rec(int first, int* solutions) {
+     
+  domain_t& domain = csp.domains[first];
+  domain_t backup_domain = domain.deep_copy();
+  bool solution_found = false;
+
+  while (!domain.is_empty() && !solution_found) {
+	  stats.tick();
+
+    assignment_t assignment = domain.select_assignment();
+    domain.perform_assignment(assignment);
+    solutions[first] = assignment.value;
+    assigned_variables[first] = 1;
+
+    if (is_consistent(solutions)) {
+      if (first+1 == csp.vnum) {
+        return true;
+      } else {
+        solution_found = 
+          solve_rec(first+1, solutions);
+        if(!solution_found) {
+          assigned_variables[first] = 0;
+        }
+      }
+    }
+	
+	  domain.revert_assignment(assignment);
+  }
+
+  if (!solution_found) {
+    domain.restore(backup_domain);
+    assigned_variables[first] = 0;
+  }
+  return solution_found;
+}
+\end{lstlisting}
+
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\extrarowheight}{.75ex}
+\newcolumntype{g}{>{\columncolor{light-gray}}l}
+\begin{longtable}{g p{9cm}}
+\toprule
+\textbf{Lines 3-5} & Il dominio della variabile corrente viene salvato, sarà modificato scendendo nell'albero ma al ritorno della ricorsione esso deve poter essere ripristinato (\textit{backtrack})\\
+\midrule
+\textbf{Line 7} & Il ciclo assegna alla variabile corrente un valore proveniente dal dominio, l'iterazione termina quando il dominio è vuoto oppure quando in un qualche sotto-albero è stata trovata una soluzione\\
+\midrule
+\textbf{Lines 8} & Viene aggiornato il contatore dei nodi esaminati\\
+\midrule
+\textbf{Lines 10-13} & Viene selezionato un assegnamento per la variabile corrente. In questo caso si seleziona sempre il minimo valore nel dominio. In valore in questione viene rimosso dal dominio della variabile e viene temporaneamente aggiunto dell'array contenente la soluzione del problema\\
+\midrule
+\textbf{Line 15} & Si controlla che la soluzione finora ottenuta, seppur parziale, sia consistente. Nel caso non lo fosse la funzione ritorna (\textit{backtrack})\\
+\midrule
+\textbf{Lines 16-24} & Se l'assegnamento è consistente e la variabile assegnata è l'ultima allora è stata trovata una soluzione e la funzione riturna \texttt{true}. Altrimenti viene invocata ricorsivamente la funzione sulla successiva variabile\\
+\midrule
+\textbf{Line 27} & L'assegnamento correntemente esaminato viene annullato\\
+\midrule
+\textbf{Lines 30-33} & Se nessuna soluzione è stata trovata nell'intero sotto-albero il dominio della variabile corrente viene ripristinato\\
+\bottomrule
+\end{longtable}
+
 \subsection{Backtrack, con variabile piu' vincolata}
 \label{sec:backtrack_mc}
 
+Questa tecnica di risoluzione implementa il \textit{forward checking} con \textit{backtrack}, l'unica differenza risiede nella modalità di selezione della prossima variabile di assegnare. Nel \textit{backtrack} classico la selezione delle variabili da assegnare ad ogni livello dell'albero segue l'ordinamento $x_1, ..., x_n$. La nuova soluzione proposta implementa l'euristica per la selezione della variabile da assegnare nota come \textit{most constrained variable}. Tale euristica consiste nel selezionare la variabile non assegnata che compare nel maggior numero di vincoli. Nell'implementazione realizzata l'ordinamento di selezione delle variabili è ospitato nell'array \texttt{mc\_ordered\_variables} e calcolato in una fase di \textit{pre-processing} con la funzione mostrata nel listato \ref{lst:preprocess_mc}.
+
+\begin{lstlisting}[language=C++, caption=Funzione \texttt{preprocess} per la risoluzione \textit{backtrack}, label=lst:preprocess_mc]
+void mc_backtrack_solver_t::preprocess() {
+  vector<int> variables_constraints(csp.vnum);
+  unsigned int i;
+  for (i = 0; i < csp.cnum; i++) {
+    int* c = csp.coefs + (csp.cnum*i);
+    unsigned int j;
+    for (j = 0; j < csp.vnum; j++) {
+      if (c[j] != 0) {
+        variables_constraints[j]++;
+      }
+    }
+  }
+  for(i = 0; i < csp.vnum; i++) {
+    vector<int>::iterator it = max_element(variables_constraints.begin(), variables_constraints.end());
+    mc_ordered_variables[i] = distance(variables_constraints.begin(), it);
+    *it = -1;   
+  }
+}
+\end{lstlisting}
+
 \subsection{Backtrack, con consistenza sugli archi}
 \label{sec:backtrack_ac}
+
+Questa tecnica di risoluzione realizza la ricerca \textit{backtrack} implementando la propagazione di vincoli. Prima di ricercare un assegnamento per la variabile corrente i vincoli sono propagati in modo tale da ridurre la dimensione dei domini di tutte le variabili e quindi ridurre i nodi esplorati dalla ricerca \textit{backtrack}. La propagazione di vincoli modifica il CSP originario in CSP equivalenti fino a raggiungere un criterio di consistenza; in questo caso la consistenza ricercata è quella sugli archi (\textit{arc consistency}).\\
+La risoluzione usa una funzione simile a quella in listato \ref{lst:backtrack} che inoltre si occupa di ottenere la consistenza sugli archi per mezzo della funzione in listato \ref{lst:propagate}. \texttt{propagate} implementa l'argoritmo di consistenza sugli archi \texttt{AC-3}, che ha complessità $O(ek^3)$ dove $e$ è il numero di vincoli nel problema e $l$ è la dimensione dei domini.\\
+Nel nostro caso specifico i domini non sono altro che intervalli di interi e sono rappresentati nel programma tramite una collezione di intervalli ($\left [ l, h \right ]$). Si noti che ciascun dominio è una collezione di intervalli di interi in quanto possibili estensioni future potrebbero richiedere la rimozione dal dominio di elementi nel mezzo dell'intervallo con conseguente necessità di suddividere quest'ultimo.\\
+In una fase di \textit{pre-processing} tutti i vincoli binari del problema sono raccolti in una collezione \texttt{binary\_constraints} poi utilizzata dalla funzione \texttt{propagate}.
+
+\begin{lstlisting}[language=C++, caption=Funzione \texttt{propagate} che rende un CSP consistente sugli archi, label=lst:propagate]
+void ac_backtrack_solver_t::propagate() {
+  vector<binary_constraint_t> constraints = binary_constraints;
+  
+  while (!constraints.empty()) {
+    vector<binary_constraint_t>::iterator constraint = constraints.begin();
+
+    int cterm = csp.cterms[constraint->id];
+    int* c = csp.coefs + (csp.cnum * (constraint->id));
+    domain_t& domain1 = csp.domains[constraint->var1];
+    domain_t& domain2 = csp.domains[constraint->var2];
+    bool domain_changed = false;
+    unsigned int interval1_id;
+    for (interval1_id = 0; interval1_id < domain1.intervals.size(); interval1_id++) {
+      interval_t& interval1 = domain1.intervals[interval1_id];
+      int value1;
+      for (value1 = interval1.l; value1 <= interval1.h; value1++) {
+        bool consistent = false;
+        vector<interval_t>::iterator interval2;
+        unsigned int interval2_id;
+        for (interval2_id = 0; interval2_id < domain2.intervals.size() && !consistent; interval2_id++) {
+          interval_t& interval2 = domain2.intervals[interval2_id];
+          int value2;
+          for (value2 = interval2.l; value2 <= interval2.h; value2++) {
+            if ((c[constraint->var1]*value1) == (cterm - c[constraint->var2]*value2)) {
+              consistent = true;
+            }
+          }
+        }
+        if (!consistent) {
+          domain_changed = true;
+
+          // Remove value1 from the domain
+          domain1.split(interval1_id, value1);
+        }            
+      }   
+    }
+    if (domain_changed) {
+      vector<binary_constraint_t>::iterator new_constraint;
+      for (new_constraint = binary_constraints.begin(); new_constraint != binary_constraints.end(); new_constraint++) {
+        if (constraint->var1 == new_constraint->var2) {
+          bool found = false;
+          unsigned int i;
+          for (i = 0; i < constraints.size() && !found; i++) {
+            if (constraints[i].id == new_constraint->id && 
+              constraints[i].var1 == new_constraint->var1 && 
+              constraints[i].var2 == new_constraint->var2) {
+              found = true;
+            }
+          }
+          if (!found) { 
+            constraints.push_back(*new_constraint); 
+          }
+        }
+      }
+    }
+    constraints.erase(constraint);        
+  }
+}
+\end{lstlisting}
+
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\extrarowheight}{.75ex}
+\newcolumntype{g}{>{\columncolor{light-gray}}l}
+\begin{longtable}{g p{9cm}}
+\toprule
+\textbf{Line 2} & Viene creata una collezione che contiene tutti i vincoli binari la cui consistenza sugli archi deve ancora essere controllata\\
+\midrule
+\textbf{Line 4} & Si itera finchè la collezione di vincoli binari non è vuota\\
+\midrule
+\textbf{Line 4} & Si itera finchè la collezione di vincoli binari non è vuota\\
+\midrule
+\textbf{Lines 5-12} & Per ciascun vincolo binario selezionato si identificano i domini delle variabili coinvolte, siano esse $x_1$ e $x_2$\\
+\midrule
+\textbf{Lines 13-19} & Si itera su ciascun possibile valore della variabile $x_1$\\
+\midrule
+\textbf{Lines 20-23} & Si itera su ciascun possibile valore della variabile $x_2$\\
+\midrule
+\textbf{Lines 24-26} & Si controlla che il vincolo selezionato sia consistente sui valori selezionati\\
+\midrule
+\textbf{Lines 29-34} & Nel caso in cui per nessun valore della variabile $x_2$ il valore della variabile $x_1$ verifica il vincolo selezionato esso va rimosso dal dominio di $x_1$ e tale dominio viene marcato come modificato\\
+\midrule
+\textbf{Lines 37-55} & Qualora il dominio di $x_1$ sia cambiato vanno inseriti nella collezione di vincoli da esaminare tutti quelli che coinvolgono una qualsiasi variabile $x_j$ con $j\neq1$ e $x_1$\\
+\midrule
+\textbf{Line 56} & Il vincolo appena considerato viene eliminato dalla collezione\\
+\bottomrule
+\end{longtable}
 
 \subsection{Branch and bound}
 \label{sec:branch_and_bound}
@@ -146,7 +447,7 @@ Per quanto riguarda la User Interface (UI), la scelta e' invece ricaduta sul \te
 Ad ogni modo, i linguaggi Java e C non sono interoperabili, richiedendo quindi una soluzione che permettesse una comunicazione bi-direzionale tra la UI e il risolutore. Sono state prese in considerazione due alternative:
 \begin{itemize}
 	\item JNI (\textit{Java Native Interface}) - si tratta di un framework che permette ad applicazioni Java di chiamare (ed essere chiamate da) codice nativo, in questo caso codice C
-	\item Runtime execution - e' possibile invocare comandi \"nativi\" (i.e., propri del sistema operativo) direttamente dalla runtime di Java
+	\item Runtime execution - e' possibile invocare comandi ``nativi'' (i.e., propri del sistema operativo) direttamente dalla runtime di Java
 \end{itemize}
 
 Nonostante JNI offra un meccanismo molto valido per l'invocazione di codice nativo, la scelta e' ricaduta sulla seconda opzione, piu' semplice ed immediata.
