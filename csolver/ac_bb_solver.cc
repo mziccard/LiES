@@ -82,7 +82,6 @@ using namespace std;
             log(DEBUG_LEVEL, INLINE, "value: %d\n", min_value);
             memcpy(min_solutions, solutions, csp.vnum*sizeof(int));
           }
-          return true;
         } else { 
           solve_rec(first+1, solutions);
         }
