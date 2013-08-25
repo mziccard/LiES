@@ -36,6 +36,7 @@
 \usepackage{bera}% optional: just to have a nice mono-spaced font
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{rotating}
 
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
@@ -198,11 +199,11 @@ A partire da questi parametri, il generatore casuale di LiES genera un'istanza d
 
 \begin{lstlisting}[language=json, caption=Rappresentazione in formato json di un sistema di equazioni lineari, label=lst:json]
 {
-	"vnum": 	3,
-	"cnum":		3,
-	"coeffs": 	[1, 0, 1, 1, 0, 1, 0, 1, 0],
-	"cterms":	[10, 10, 5],
-	"domains":	[[-10, 10], [0, 10], [0, 10]]
+	"vnum": 		m,
+	"cnum":			n,
+	"coeffs":		[a11, a12, ..., amn],
+	"cterms":		[b1, ..., bm],
+	"domains":	[[l1, h1], ..., [ln, hn]]
 }
 \end{lstlisting}
 
@@ -294,9 +295,9 @@ bool backtrack_solver_t::solve_rec(int first, int* solutions) {
 \midrule
 \textbf{Lines 10-13} & Viene selezionato un assegnamento per la variabile corrente. In questo caso si seleziona sempre il minimo valore nel dominio. In valore in questione viene rimosso dal dominio della variabile e viene temporaneamente aggiunto dell'array contenente la soluzione del problema\\
 \midrule
-\textbf{Line 15} & Si controlla che la soluzione finora ottenuta, seppur parziale, sia consistente. Nel caso non lo fosse la funzione ritorna (\textit{backtrack})\\
+\textbf{Line 15} & Si controlla che la soluzione finora ottenuta, seppur parziale, sia consistente\\
 \midrule
-\textbf{Lines 16-24} & Se l'assegnamento è consistente e la variabile assegnata è l'ultima allora è stata trovata una soluzione e la funzione riturna \texttt{true}. Altrimenti viene invocata ricorsivamente la funzione sulla successiva variabile\\
+\textbf{Lines 16-24} & Se l'assegnamento è consistente e la variabile assegnata è l'ultima allora è stata trovata una soluzione e la funzione ritorna \texttt{true}. Altrimenti viene invocata ricorsivamente la funzione sulla successiva variabile\\
 \midrule
 \textbf{Line 27} & L'assegnamento correntemente esaminato viene annullato\\
 \midrule
@@ -430,12 +431,234 @@ void ac_backtrack_solver_t::propagate() {
 \subsection{Branch and bound}
 \label{sec:branch_and_bound}
 
+Passiamo ora alle tecniche di ricerca di una soluzione ottima. La prima tecnica implementata è quella che realizza un semplice \textit{branch and bound}. La ricerca \textit{branch and bound} costruisce un albero di ricerca esattamente come la ricerca \textit{backtrack} ma non si ferma alla prima soluzione consistente, ricerca invece la soluzione ottima secondo una data funzione obiettivo $f$. La ricerca mantiene inoltre che un valore $bound$ che rappresenta il valore della funzione obiettivo per la migliore soluzione trovata finora. In combinazione al valore $bound$ si usa una funzione euristica che valuti la qualità di soluzioni incomplete, la funzione euristica $h$ è tale da permetterci di escludere dalla ricerca l'intero sotto-albero qualora il valore di $h$ per il nodo visitato sia già peggiore di $bound$.\\
+Nel nostro caso la funzione obiettivo usata corrisponde alla somma delle variabili di indice pari:
+\begin{equation*}
+f(X) = \sum_{i \in [0,n-1]:~i~is~even} x_i
+\end{equation*}
+E vogliamo ottenere la soluzione che minimizza il valore $f(X)$, a questo scopo usiamo come funzione euristica:
+\begin{equation*}
+h(X) = \sum_{i \in [0,n-1]:~i~is~even} min(x_i)
+\end{equation*}
+Dove $min(x_i)$ è il valore assegnato a $x_i$ se la variabile è stata istanziata, altrimenti è il minimo valore assegnabile a $x_i$ proveniente dal suo dominio. Date le suddette funzioni, qualora si trovi una soluzione tale che $f(X) < bound$ allora $bound$ viene aggiornata e qualora si incontri un nodo tale che $h(X) \geq bound$ allora l'intero sottoalbero viene escluso dalla ricerca.\\
+La funzione che si occupa della ricerca \textit{branch and bound} è riportata in listato \ref{lst:bb_solve_rec}
+
+\begin{lstlisting}[language=C++, caption=Funzione \texttt{solve\_rec} per la risoluzione \textit{branch and bound}, label=lst:bb_solve_rec]
+bool bb_solver_t::solve_rec(int first, int* solutions){
+  if (evaluate_node(solutions, first) > min_value) {
+    return true;
+  }
+ 
+  domain_t& domain = csp.domains[first];
+  domain_t backup_domain = domain.deep_copy();
+
+  while (!domain.is_empty()) {
+    assignment_t assignment = domain.select_assignment();
+    domain.perform_assignment(assignment);
+
+    solutions[first] = assignment.value;
+    assigned_variables[first] = 1;
+
+    stats.tick();
+
+    if (is_consistent(solutions)) {
+      if (first+1 == csp.vnum) {
+        long evaluation = evaluate_node(solutions, first);
+        if (evaluation < min_value) {
+          min_value = evaluation;
+          memcpy(min_solutions,solutions,csp.vnum*sizeof(int));
+        }
+      } else { 
+        solve_rec(first+1, solutions);
+      }
+    }
+    assigned_variables[first] = 0;
+    domain.revert_assignment(assignment);
+  }
+  domain.restore(backup_domain);
+  assigned_variables[first] = 0;
+  return true;
+}
+\end{lstlisting}
+
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\extrarowheight}{.75ex}
+\newcolumntype{g}{>{\columncolor{light-gray}}l}
+\begin{longtable}{g p{9cm}}
+\toprule
+\textbf{Lines 2-4} & Se la valutazione euristica del nodo corrente è maggiore del miglior valore della funzione obiettivo finora ottenuto (\texttt{min\_value}) la funzione ritorna, scartando l'intero sottoalbero\\
+\midrule
+\textbf{Lines 6-7} & Il dominio della variabile corrente viene salvato, sarà modificato scendendo nell'albero ma al ritorno della ricorsione esso deve poter essere ripristinato\\
+\midrule
+\textbf{Line 9} & Il ciclo assegna alla variabile corrente un valore proveniente dal dominio, l'iterazione termina quando il dominio è vuoto\\
+\midrule
+\textbf{Lines 10-14} & Viene selezionato un assegnamento per la variabile corrente. In questo caso si seleziona sempre il minimo valore nel dominio. In valore in questione viene rimosso dal dominio della variabile e viene temporaneamente aggiunto dell'array contenente la soluzione del problema\\
+\midrule
+\textbf{Line 16} & Viene aggiornato il contatore dei nodi esaminati\\
+\midrule
+\textbf{Line 18} & Si controlla che la soluzione finora ottenuta, seppur parziale, sia consistente\\
+\midrule
+\textbf{Lines 19-27} & Se l'assegnamento è consistente e la variabile assegnata è l'ultima allora è stata trovata una soluzione. Si calcola la funzione obiettivo sulla soluzione appena trovata e qualora sia minore di \texttt{min\_value} si aggiorna questo valore e la soluzione ottima \texttt{min\_solutions}. Se la variabile assegnata non è l'ultima si invoca ricorsivamente la funzione sulla variabile successiva\\
+\midrule
+\textbf{Lines 29-30} & L'assegnamento correntemente esaminato viene annullato\\
+\midrule
+\textbf{Line 32} & Se nessuna soluzione è stata trovata nell'intero sotto-albero il dominio della variabile corrente viene ripristinato\\
+\bottomrule
+\end{longtable}
+
 \subsection{Branch and bound, con consistenza sugli archi}
 \label{sec:branch_and_bound_ac}
+
+Questa tecnica di risoluzione realizza la ricerca \textit{branch and bound} implementando la propagazione di vincoli. Prima di ricercare un assegnamento per la variabile corrente i vincoli sono propagati in modo tale da ridurre la dimensione dei domini di tutte le variabili e quindi ridurre i nodi esplorati dalla ricerca \textit{branch and bound}. La propagazione di vincoli modifica il CSP originario in CSP equivalenti fino a raggiungere un criterio di consistenza; in questo caso la consistenza ricercata è quella sugli archi (\textit{arc consistency}).\\
+La ricerca viene realizzata per mezzo di una funzione simile a quella riportata in listato \ref{lst:bb_solve_rec} mentre la consistenza sugli archi viene garantita dalla funzione in listato \ref{lst:propagate}.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 4
 %----------------------------------------------------------------------------------------
+
+\section{Test}
+
+Gli algorimti di risoluzione sono stati testati da riga di comando e diversi dati sono stati raccolti al fine di analizzarne il comportamento. I primi dati raccolti sono relativi ad una esecuzione degli algoritmi \textit{backtrack}, \textit{backtrack} con euristica \textit{most constrained variable} e \textit{backtrack} con \textit{arc consistency} su un semplice problema in 3 variabili. La seconda batteria di test eseguita studia il comportamento dei tre precedenti algoritmi su problemi generati casualmente all'aumentare del numero di variabili. Infine sono stati raccolti tempi di esecuzione e numero di nodi visitati per gli algoritmi \textit{branch and bound} e \textit{branch and bound} con \textit{arc consistency}.
+
+\subsection{Test 1}
+Gli algoritmi \textit{backtrack} (\texttt{Backtrack}), \textit{backtrack} con euristica \textit{most constrained variable} (\texttt{MC\_Backtrack}) e \textit{backtrack} con \textit{arc consistency} (\texttt{AC\_Backtrack}) sono stati eseguiti sul problema riportato in listato \ref{lst:csp1}.
+
+\begin{lstlisting}[language=json, caption=csp1: problema sul quale è stata eseguita la prima batteria di test, label=lst:csp1]
+{
+	"vnum": 		3,
+	"cnum":			3,
+	"coeffs":		[1, 0, 1, 1, 0, 1, 0, 1, 0],
+	"cterms":		[10, 10, 5],
+	"domains":	[[-10, 10], [0, 10], [0, 10]]
+}
+\end{lstlisting}
+
+I dati raccolti sono relativi a tempi di esecuzione e nodi visitati dai vari algoritmi i sono riportati in tabella \ref{tab:test1}.
+
+\begin{longtable}{c c c}
+\toprule
+\textbf{Algorithm} & \textbf{Time (ms)} & \textbf{Nodes}\\
+\midrule
+\texttt{Backtrack} & 0,515 & 248 \\
+\midrule
+\texttt{MC\_Backtrack} & 0,295 & 138 \\
+\midrule
+\texttt{AC\_Backtrack} & 0,075 & 8 \\
+\bottomrule
+\caption{Tempi di esecuzione e numero di nodi visitati nella ricerca di una soluzione al problema csp1}
+\label{tab:test1}
+\end{longtable}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{./report-images/test1_nodes.pdf}
+\caption{Grafico dei nodi visitati nella risoluzione del problema csp1}
+\label{fig:test1_nodes}
+\end{center}
+\end{figure}
+
+Nelle figure \ref{fig:test1_nodes} e \ref{fig:test1_time} si può notare come sia il numero di nodi che il tempo di esecuzione diminuiscano usando l'algoritmo \texttt{MC\_backtrack} rispetto all'algoritmo \texttt{Backtrack}. \texttt{MC\_backtrack} infatti, assegnando per prime le variabili che compaiono in più vincoli permette di restringere maggiormente il dominio delle successive variabili da assegnare, riducendo la dimensione dell'albero da visitare. Come atteso l'algoritmo migliore si rivela \texttt{AC\_backtrack} che riduce al minimo la quantità di nodi da visitare rimpicciolendo i domini tramite la consistenza sugli archi.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{./report-images/test1_time.pdf}
+\caption{Grafico dei tempi di esecuzione nella risoluzione del problema csp1}
+\label{fig:test1_time}
+\end{center}
+\end{figure}
+
+\subsection{Test 2}
+
+\begin{sidewaystable}
+\centering
+\begin{tabular}{c | c | c | c c | c c | c c}
+\textbf{Problem} & \textbf{Variables} & \textbf{Status} & \multicolumn{2}{c}{\textbf{Backtrack}} & \multicolumn{2}{c}{\textbf{MC\_Backtrack}} & \multicolumn{2}{c}{\textbf{AC\_Backtrack}} \\
+ & & & \textbf{Nodes} & \textbf{Times (ms)} & \textbf{Nodes} & \textbf{Times (ms)} & \textbf{Nodes} & \textbf{Times (ms)}\\
+\toprule
+cspa.json & SOLVED & 4 & 1267 & 653,435 & 67 & 11,714 & 4 & 3,394 \\
+\midrule
+cspb.json & FAILED & 5 & 8840 & 8217,945 & 8840 & 9376,913 & 8422 & 7755,468 \\
+\midrule
+cspc.json & FAILED & 6 & 168420 & 118,939 & 8420 & 6,66 & 0 & 0,025 \\
+\midrule
+cspe.json & FAILED & 7 & 3368420	& 3443,583 & 8420 & 7,329 & 0 & 1,952 \\
+\midrule
+cspd.json & FAILED & 8 & 168420 & 263,697 & 420 & 1,877 & 0 & 0,096 \\
+\midrule
+cspf.json & FAILED & 9 & 3368420	& 2732,075 & 420 & 1,279 & 0 & 0,031 \\
+\midrule
+cspg.json & FAILED & 10 & 168420	& 161,748 & 8420 & 7,275 & 0 & 0,038 \\
+\midrule
+csph.json & FAILED & 11 & 3368420 & 6513,557 & 168420 & 155,434 & 0 & 0,035 \\
+\midrule
+cspi.json & FAILED & 12 & 176820	& 243,419 & 168420 & 228,973 & 0 & 0,036 \\
+\bottomrule
+\end{tabular}
+\caption{Numero di nodi visitati e tempi di esecuzione della risoluzione di problemi generati casualmente all'aumentare del numero di variabili}
+\label{tab:test2}
+\end{sidewaystable}
+
+Gli algoritmi \textit{backtrack} (\texttt{Backtrack}), \textit{backtrack} con euristica \textit{most constrained variable} (\texttt{MC\_Backtrack}) e \textit{backtrack} con \textit{arc consistency} (\texttt{AC\_Backtrack}) sono stati eseguiti su un insieme di 9 problemi generati casualmente a partire dai parametri \texttt{(2, n, 20, 0.2, 0.5)} con n crescente da $4$ a $12$. I problemi (da \texttt{cspa} a \texttt{cspi}) sono disponibili al seguente indirizzo \url{https://github.com/mziccard/LiES/csolver/test}.\\
+Numero di nodi visitati e tempi di esecuzione raccolti sono mostrati in tabella \ref{tab:test2}.
+
+
+
+Come si nota dalla tabella \ref{tab:test2} l'algoritmo \texttt{AC\_Backtrack} spesso risolve il problema ancor prima di iniziare la ricerca di una soluzione: in questi casi la propagazione di vincoli fino alla consistenza sugli archi svuota il dominio di qualche variabile, rendendo inutile ogni tentativo di risoluzione, il problema non ha soluzione. Dai dati notiamo inoltre come la complessità di un problema non dipenda esclusivamente dal numero di variabili ma essa dipende inoltre dalla complessita intrinseca del problema (strettezza dei vincoli).\\ Dai dati vediamo inoltre come i tempi di esecuzione e il numero di nodi visitati tenda a crescere (salvo oscillazioni imputabili alla complessita intrinseca di alcuni problemi) in maniera esponenziale al crescere del numero di variabili. Come atteso \texttt{MC\_Backtrack} si comporta meglio di \texttt{Backtrack}, limitando notevolemente il numero di nodi visitati e il tempo di esecuzione. Anche in questo caso tuttavia l'andamento del numero di nodi visitati al crescere del numero di variabili sembra essere esponenziale. I problemi generati casualmente hanno tutti vincoli di arietà pari a 2 e quindi ci aspettavamo che l'algoritmo che assicurasse le prestazioni migliori fosse \texttt{AC\_\allowbreak Backtrack} (dal momento che la consistenza sugli archi riduce i domini a partire da vincoli binari). Dati alla mano, infatti, \texttt{AC\_Backtrack} si conferma essere l'algoritmo migliore.\\
+In figura \ref{fig:test2_nodes} è rappresentato per ciascuno dei tre algoritmi il logaritmo in base dieci del numero di nodi visualizzati $(log(nodes))$. Rappresentiamo il logaritmo del numero di nodi e non il numero di nodi stesso per rendere la visualizzazione più efficace. Nel caso di \texttt{AC\_Backtrack}, in cui il numero di nodi visualizzati è $0$, normalizziamo anche il logaritmo a $0$.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.8]{./report-images/test2_nodes.pdf}
+\caption{Grafico dei nodi visitati nella risoluzione di problemi generati casualmente all'aumentare del numero di variabili}
+\label{fig:test2_nodes}
+\end{center}
+\end{figure}
+
+Notiamo dal grafico in figura \ref{fig:test2_nodes} che il logaritmo dei nodi visitati sembra crescere linearmente per gli algoritmi \texttt{Backtrack} e \texttt{MC\_Backtrack}. Ciò significa che, come atteso, il numero di nodi visitati cresce esponenzialmente al crescere del numero di variabili per questi due algoritmi. L'algoritmo \texttt{AC\_Backtrack} si rivela notevolmente migliore, principalmente a causa del fatto che tutti i vincoli nei problemi sono binari e la consistenza sugli archi in questi casi è particolarmente efficace.\\
+In figura \ref{fig:test2_time} riportiamo invece l'andamento dei tempi di esecuzione dei vari algoritmi al crescere del numero di variabili. Da entrambi i grafici \ref{fig:test2_nodes} e \ref{fig:test2_time} riportati notiamo come il problema \texttt{cspb} in $5$ variabili risulti particolarmente complesso per tutti gli algoritmi.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.9]{./report-images/test2_time.pdf}
+\caption{Grafico dei tempi di esecuzione nella risoluzione di problemi generati casualmente all'aumentare del numero di variabili}
+\label{fig:test2_time}
+\end{center}
+\end{figure}
+
+\subsection{Test 3}
+Gli algoritmi \textit{branch and bound} (\texttt{BB}), \textit{branch and bound} con \textit{arc consistency} (\texttt{AC\_BB}) sono stati eseguiti sul problema riportato in listato \ref{lst:csp1}.\\
+I dati raccolti sono relativi a tempi di esecuzione e nodi visitati dai vari algoritmi i sono riportati in tabella \ref{tab:test2}.
+
+\begin{longtable}{c c c}
+\toprule
+\textbf{Algorithm} & \textbf{Time (ms)} & \textbf{Nodes}\\
+\midrule
+\texttt{BB} & 344,155 & 483 \\
+\midrule
+\texttt{AC\_BB} & 9,926 & 23 \\
+\bottomrule
+\caption{Tempi di esecuzione e numero di nodi visitati nella ricerca di una soluzione ottima al problema csp1}
+\label{tab:test2}
+\end{longtable}
+
+Nei grafici in figura \ref{fig:test3_nodes} e \ref{fig:test3_time} sono riportati rispettivamente i nodi visitati e i tempi di esecuzione per gli algoritmi \textit{branch and bound} e \textit{branch and bound} con \textit{arc consistency}. Come atteso \texttt{BB\_AC} è notevolmente più veloce del semplice \texttt{BB}, la consistenza sugli archi nel caso in cui si debba percorrere tutto l'albero alla ricerca di una soluzione ottima porta vantaggi prestazionali ancora più sensibili.
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{./report-images/test3_nodes.pdf}
+\caption{Grafico dei nodi visitati nella risoluzione ottima del problema csp1}
+\label{fig:test3_nodes}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+\includegraphics[scale=0.7]{./report-images/test3_time.pdf}
+\caption{Grafico dei tempi di esecuzione nella risoluzione ottima del problema csp1}
+\label{fig:test3_time}
+\end{center}
+\end{figure}
 
 \section{Scelte implementative}
 \label{sec:scelte_implementative}
