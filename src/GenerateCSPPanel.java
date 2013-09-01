@@ -74,7 +74,7 @@ public class GenerateCSPPanel extends JPanel {
         domainSizeField = new JTextField(3);
         ((AbstractDocument) domainSizeField.getDocument()).setDocumentFilter(new NumericDocumentFilter(3));
         domainSizeField.setHorizontalAlignment(JTextField.RIGHT);
-        domainSizeLabel = new JLabel("Insert the domain size of the constraint");
+        domainSizeLabel = new JLabel("Insert the domain size of the variables");
 
         Hashtable labelTable = new Hashtable();
         labelTable.put( new Integer(0), new JLabel("0.00") );
