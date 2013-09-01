@@ -170,32 +170,32 @@ Email: dextorer@gmail.com, marco.ziccard@gmail.com }
 \section{Introduzione}
 \label{sec:introduzione}
 
-LiES (\textit{Linear Equations Solver}) e' un risolutore di sistemi di equazioni lineari, realizzato per il corso di Sistemi con Vincoli (A.A. 2012/2013). LiES permette all'utente di generare problemi di soddisfacimento di vincoli (CSP, \textit{Constraint Satisfaction Problems}) e di risolverli utilizzando diverse tecniche viste a lezione.\\
+LiES (\textit{Linear Equations Solver}) è un risolutore di sistemi di equazioni lineari, realizzato per il corso di Sistemi con Vincoli (A.A. 2012/2013). LiES permette all'utente di generare problemi di soddisfacimento di vincoli (CSP, \textit{Constraint Satisfaction Problems}) e di risolverli utilizzando diverse tecniche viste a lezione.\\
 
-Questo documento e' strutturato nel seguente modo: dopo aver illustrato le diverse funzionalita' di LiES nella Sezione~\ref{sec:funzionalita}, verranno descritte piu' dettagliatamente le tecniche di risoluzione del sistema nella Sezione~\ref{sec:strategie}. Infine la Sezione~\ref{sec:scelte_implementative} affrontera' alcuni dettagli implementativi che risultano piu' interessanti dal punto di vista della progettazione e della realizzazione.
+Questo documento è strutturato nel seguente modo: dopo aver illustrato le diverse funzionalità di LiES nella Sezione~\ref{sec:funzionalita}, verranno descritte più dettagliatamente le tecniche di risoluzione del sistema nella Sezione~\ref{sec:strategie}. In sezione \ref{sec:test} sono riportati i dati raccolti testando i diversi algoritmi di risoluzione realizzati. Infine la Sezione~\ref{sec:scelte_implementative} affronterà alcuni dettagli implementativi che risultano più interessanti dal punto di vista della progettazione e della realizzazione.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
 %----------------------------------------------------------------------------------------
 
-\section{Funzionalita'}
+\section{Funzionalità}
 \label{sec:funzionalita}
 
-LiES, come risolutore di sistemi di equazioni lineari, mette a disposizione un \textbf{generatore casuale} di problemi sulla base di alcuni parametri configurabili dall'utente (per chiarezza d'esposizione, d'ora in poi ci si riferira' a sistemi di equazioni lineari con CSP). La classe dei problemi casuali generati da LiES e' della forma:
+LiES, come risolutore di sistemi di equazioni lineari, mette a disposizione un \textbf{generatore casuale} di problemi sulla base di alcuni parametri configurabili dall'utente (per chiarezza d'esposizione, d'ora in poi ci si riferirà a sistemi di equazioni lineari con CSP). La classe dei problemi casuali generati da LiES è della forma:
 \begin{center}
 	\textit{B(k,n,d,$p_1$,$p_2$)}
 \end{center}
 
 dove:
 \begin{itemize}
-	\item k - indica l'arieta' (numero di variabili) che caratterizza ciascun vincolo
+	\item k - indica l'arietà (numero di variabili) che caratterizza ciascun vincolo
 	\item n - indica il numero di variabili
 	\item d - indica la grandezza di ciascun dominio
-	\item $p_1$ - indica la densita' del grafo di vincoli (ovvero, quanti vincoli rispetto al massimo)
+	\item $p_1$ - indica la densità del grafo di vincoli (ovvero, quanti vincoli rispetto al massimo)
 	\item $p_2$ - indica la strettezza dei vincoli (ovvero,	quante tuple sono proibite dai vincoli) 
 \end{itemize}
 
-A partire da questi parametri, il generatore casuale di LiES genera un'istanza di problema. Tale istanza viene elaborata e visualizzata sull'apposito pannello, mentre la versione originale e' memorizzata in formato JSON (si veda listato \ref{lst:json} per un esempio).
+A partire da questi parametri, il generatore casuale di LiES genera un'istanza di problema. Tale istanza viene elaborata e visualizzata sull'apposito pannello, mentre la versione originale è memorizzata in formato JSON (si veda listato \ref{lst:json} per un esempio).
 
 \begin{lstlisting}[language=json, caption=Rappresentazione in formato json di un sistema di equazioni lineari, label=lst:json]
 {
@@ -208,12 +208,12 @@ A partire da questi parametri, il generatore casuale di LiES genera un'istanza d
 \end{lstlisting}
 
 
-E' altresi' possibile \textbf{esportare} un CSP su un file e \textbf{importare} un CSP precedentemente salvato; tuttavia, essendo questi CSP istanze casuali, riportare i parametri originali di creazione sarebbe superfluo e non interessante, pertanto tali parametri non vengono visualizzati.\\
+Inoltre, è possibile \textbf{esportare} un CSP su un file e \textbf{importare} un CSP precedentemente salvato; tuttavia, essendo questi CSP istanze casuali, riportare i parametri originali di creazione sarebbe superfluo e non interessante, pertanto tali parametri non vengono visualizzati.\\
 
-Infine, LiES permette di calcolare una soluzione (se esiste) per un dato sistema di equazioni lineari generato casualmente. La scelta sul metodo di risoluzione e' lasciata all'utente, che puo' scegliere tra le seguenti tecniche:
+Infine, LiES permette di calcolare una soluzione (se esiste) per un dato sistema di equazioni lineari generato casualmente. La scelta sul metodo di risoluzione è lasciata all'utente, che puo' scegliere tra le seguenti tecniche:
 \begin{itemize}
 	\item Backtrack
-	\item Bactrack, con variabile piu' vincolata
+	\item Bactrack, con variabile più vincolata
 	\item Backtrack, con consistenza sugli archi
 	\item Branch and bound
 	\item Branch and bound, con consistenza sugli archi
@@ -241,7 +241,7 @@ La prima strategia di risoluzione disponibile è la ricerca \textit{forward chec
 	\item I suoi rami determinano tutte le istanziazioni consistenti secondo l'~ordinamento $x_1, ..., x_n$ 
 \end{itemize}
 
-in questo caso nessuna tecnica di propagazione di vincoli viene utilizzata. La funzione ricorsiva responsabile per la costruzione dell'albero e ricerca di una soluzione è riportata nel listato \ref{lst:backtrack}.
+In questo caso nessuna tecnica di propagazione di vincoli viene utilizzata. La funzione ricorsiva responsabile per la costruzione dell'albero e ricerca di una soluzione è riportata nel listato \ref{lst:backtrack}.
 
 \begin{lstlisting}[language=C++, caption=Funzione \texttt{solve\_rec} per la risoluzione \textit{backtrack}, label=lst:backtrack]
 bool backtrack_solver_t::solve_rec(int first, int* solutions) {
@@ -305,7 +305,7 @@ bool backtrack_solver_t::solve_rec(int first, int* solutions) {
 \bottomrule
 \end{longtable}
 
-\subsection{Backtrack, con variabile piu' vincolata}
+\subsection{Backtrack, con variabile più vincolata}
 \label{sec:backtrack_mc}
 
 Questa tecnica di risoluzione implementa il \textit{forward checking} con \textit{backtrack}, l'unica differenza risiede nella modalità di selezione della prossima variabile di assegnare. Nel \textit{backtrack} classico la selezione delle variabili da assegnare ad ogni livello dell'albero segue l'ordinamento $x_1, ..., x_n$. La nuova soluzione proposta implementa l'euristica per la selezione della variabile da assegnare nota come \textit{most constrained variable}. Tale euristica consiste nel selezionare la variabile non assegnata che compare nel maggior numero di vincoli. Nell'implementazione realizzata l'ordinamento di selezione delle variabili è ospitato nell'array \texttt{mc\_ordered\_variables} e calcolato in una fase di \textit{pre-processing} con la funzione mostrata nel listato \ref{lst:preprocess_mc}.
@@ -335,7 +335,7 @@ void mc_backtrack_solver_t::preprocess() {
 \label{sec:backtrack_ac}
 
 Questa tecnica di risoluzione realizza la ricerca \textit{backtrack} implementando la propagazione di vincoli. Prima di ricercare un assegnamento per la variabile corrente i vincoli sono propagati in modo tale da ridurre la dimensione dei domini di tutte le variabili e quindi ridurre i nodi esplorati dalla ricerca \textit{backtrack}. La propagazione di vincoli modifica il CSP originario in CSP equivalenti fino a raggiungere un criterio di consistenza; in questo caso la consistenza ricercata è quella sugli archi (\textit{arc consistency}).\\
-La risoluzione usa una funzione simile a quella in listato \ref{lst:backtrack} che inoltre si occupa di ottenere la consistenza sugli archi per mezzo della funzione in listato \ref{lst:propagate}. \texttt{propagate} implementa l'argoritmo di consistenza sugli archi \texttt{AC-3}, che ha complessità $O(ek^3)$ dove $e$ è il numero di vincoli nel problema e $l$ è la dimensione dei domini.\\
+La risoluzione usa una funzione simile a quella in listato \ref{lst:backtrack} che inoltre si occupa di ottenere la consistenza sugli archi per mezzo della funzione in listato \ref{lst:propagate}. \texttt{propagate} implementa l'argoritmo di consistenza sugli archi \texttt{AC-3}, che ha complessità $O(ek^3)$ dove $e$ è il numero di vincoli nel problema e $k$ è la dimensione dei domini.\\
 Nel nostro caso specifico i domini non sono altro che intervalli di interi e sono rappresentati nel programma tramite una collezione di intervalli ($\left [ l, h \right ]$). Si noti che ciascun dominio è una collezione di intervalli di interi in quanto possibili estensioni future potrebbero richiedere la rimozione dal dominio di elementi nel mezzo dell'intervallo con conseguente necessità di suddividere quest'ultimo.\\
 In una fase di \textit{pre-processing} tutti i vincoli binari del problema sono raccolti in una collezione \texttt{binary\_constraints} poi utilizzata dalla funzione \texttt{propagate}.
 
@@ -410,8 +410,6 @@ void ac_backtrack_solver_t::propagate() {
 \midrule
 \textbf{Line 4} & Si itera finchè la collezione di vincoli binari non è vuota\\
 \midrule
-\textbf{Line 4} & Si itera finchè la collezione di vincoli binari non è vuota\\
-\midrule
 \textbf{Lines 5-12} & Per ciascun vincolo binario selezionato si identificano i domini delle variabili coinvolte, siano esse $x_1$ e $x_2$\\
 \midrule
 \textbf{Lines 13-19} & Si itera su ciascun possibile valore della variabile $x_1$\\
@@ -431,7 +429,7 @@ void ac_backtrack_solver_t::propagate() {
 \subsection{Branch and bound}
 \label{sec:branch_and_bound}
 
-Passiamo ora alle tecniche di ricerca di una soluzione ottima. La prima tecnica implementata è quella che realizza un semplice \textit{branch and bound}. La ricerca \textit{branch and bound} costruisce un albero di ricerca esattamente come la ricerca \textit{backtrack} ma non si ferma alla prima soluzione consistente, ricerca invece la soluzione ottima secondo una data funzione obiettivo $f$. La ricerca mantiene inoltre che un valore $bound$ che rappresenta il valore della funzione obiettivo per la migliore soluzione trovata finora. In combinazione al valore $bound$ si usa una funzione euristica che valuti la qualità di soluzioni incomplete, la funzione euristica $h$ è tale da permetterci di escludere dalla ricerca l'intero sotto-albero qualora il valore di $h$ per il nodo visitato sia già peggiore di $bound$.\\
+Passiamo ora alle tecniche di ricerca di una soluzione ottima. La prima tecnica implementata è quella che realizza un semplice \textit{branch and bound}. La ricerca \textit{branch and bound} costruisce un albero di ricerca esattamente come la ricerca \textit{backtrack} ma non si ferma alla prima soluzione consistente, ricerca invece la soluzione ottima secondo una data funzione obiettivo $f$. La ricerca mantiene inoltre un valore $bound$ che rappresenta il valore della funzione obiettivo per la migliore soluzione trovata finora. In combinazione al valore $bound$ si usa una funzione euristica che valuti la qualità di soluzioni incomplete, la funzione euristica $h$ è tale da permetterci di escludere dalla ricerca l'intero sotto-albero qualora il valore di $h$ per il nodo visitato sia già peggiore di $bound$.\\
 Nel nostro caso la funzione obiettivo usata corrisponde alla somma delle variabili di indice pari:
 \begin{equation*}
 f(X) = \sum_{i \in [0,n-1]:~i~is~even} x_i
@@ -440,8 +438,8 @@ E vogliamo ottenere la soluzione che minimizza il valore $f(X)$, a questo scopo 
 \begin{equation*}
 h(X) = \sum_{i \in [0,n-1]:~i~is~even} min(x_i)
 \end{equation*}
-Dove $min(x_i)$ è il valore assegnato a $x_i$ se la variabile è stata istanziata, altrimenti è il minimo valore assegnabile a $x_i$ proveniente dal suo dominio. Date le suddette funzioni, qualora si trovi una soluzione tale che $f(X) < bound$ allora $bound$ viene aggiornata e qualora si incontri un nodo tale che $h(X) \geq bound$ allora l'intero sottoalbero viene escluso dalla ricerca.\\
-La funzione che si occupa della ricerca \textit{branch and bound} è riportata in listato \ref{lst:bb_solve_rec}
+Dove $min(x_i)$ è il valore assegnato a $x_i$ se la variabile è stata istanziata, altrimenti è il minimo valore assegnabile a $x_i$ proveniente dal suo dominio. Date le suddette funzioni, qualora si trovi una soluzione tale che $f(X) < bound$ allora $bound$ viene aggiornata e qualora si incontri un nodo tale che $h(X) \geq bound$ allora l'intero sotto-albero viene escluso dalla ricerca.\\
+La funzione che si occupa della ricerca \textit{branch and bound} è riportata in listato \ref{lst:bb_solve_rec}.
 
 \begin{lstlisting}[language=C++, caption=Funzione \texttt{solve\_rec} per la risoluzione \textit{branch and bound}, label=lst:bb_solve_rec]
 bool bb_solver_t::solve_rec(int first, int* solutions){
@@ -487,7 +485,7 @@ bool bb_solver_t::solve_rec(int first, int* solutions){
 \newcolumntype{g}{>{\columncolor{light-gray}}l}
 \begin{longtable}{g p{9cm}}
 \toprule
-\textbf{Lines 2-4} & Se la valutazione euristica del nodo corrente è maggiore del miglior valore della funzione obiettivo finora ottenuto (\texttt{min\_value}) la funzione ritorna, scartando l'intero sottoalbero\\
+\textbf{Lines 2-4} & Se la valutazione euristica del nodo corrente è maggiore del miglior valore della funzione obiettivo finora ottenuto (\texttt{min\_value}) la funzione ritorna, scartando l'intero sotto-albero\\
 \midrule
 \textbf{Lines 6-7} & Il dominio della variabile corrente viene salvato, sarà modificato scendendo nell'albero ma al ritorno della ricorsione esso deve poter essere ripristinato\\
 \midrule
@@ -517,7 +515,7 @@ La ricerca viene realizzata per mezzo di una funzione simile a quella riportata 
 %	SECTION 4
 %----------------------------------------------------------------------------------------
 
-\section{Test}
+\section{Test}\label{sec:test}
 
 Gli algorimti di risoluzione sono stati testati da riga di comando e diversi dati sono stati raccolti al fine di analizzarne il comportamento. I primi dati raccolti sono relativi ad una esecuzione degli algoritmi \textit{backtrack}, \textit{backtrack} con euristica \textit{most constrained variable} e \textit{backtrack} con \textit{arc consistency} su un semplice problema in 3 variabili. La seconda batteria di test eseguita studia il comportamento dei tre precedenti algoritmi su problemi generati casualmente all'aumentare del numero di variabili. Infine sono stati raccolti tempi di esecuzione e numero di nodi visitati per gli algoritmi \textit{branch and bound} e \textit{branch and bound} con \textit{arc consistency}.
 
@@ -535,6 +533,7 @@ Gli algoritmi \textit{backtrack} (\texttt{Backtrack}), \textit{backtrack} con eu
 \end{lstlisting}
 
 I dati raccolti sono relativi a tempi di esecuzione e nodi visitati dai vari algoritmi i sono riportati in tabella \ref{tab:test1}.
+Nelle figure \ref{fig:test1_nodes} e \ref{fig:test1_time} si può notare come sia il numero di nodi che il tempo di esecuzione diminuiscano usando l'algoritmo \texttt{MC\_backtrack} rispetto all'algoritmo \texttt{Backtrack}. \texttt{MC\_backtrack} infatti, assegnando per prime le variabili che compaiono in più vincoli permette di restringere maggiormente il dominio delle successive variabili da assegnare, riducendo la dimensione dell'albero da visitare. Come atteso l'algoritmo migliore si rivela \texttt{AC\_backtrack} che riduce al minimo la quantità di nodi da visitare rimpicciolendo i domini tramite la consistenza sugli archi.
 
 \begin{longtable}{c c c}
 \toprule
@@ -557,8 +556,6 @@ I dati raccolti sono relativi a tempi di esecuzione e nodi visitati dai vari alg
 \label{fig:test1_nodes}
 \end{center}
 \end{figure}
-
-Nelle figure \ref{fig:test1_nodes} e \ref{fig:test1_time} si può notare come sia il numero di nodi che il tempo di esecuzione diminuiscano usando l'algoritmo \texttt{MC\_backtrack} rispetto all'algoritmo \texttt{Backtrack}. \texttt{MC\_backtrack} infatti, assegnando per prime le variabili che compaiono in più vincoli permette di restringere maggiormente il dominio delle successive variabili da assegnare, riducendo la dimensione dell'albero da visitare. Come atteso l'algoritmo migliore si rivela \texttt{AC\_backtrack} che riduce al minimo la quantità di nodi da visitare rimpicciolendo i domini tramite la consistenza sugli archi.
 
 \begin{figure}[!h]
 \begin{center}
@@ -604,7 +601,7 @@ Numero di nodi visitati e tempi di esecuzione raccolti sono mostrati in tabella 
 
 
 
-Come si nota dalla tabella \ref{tab:test2} l'algoritmo \texttt{AC\_Backtrack} spesso risolve il problema ancor prima di iniziare la ricerca di una soluzione: in questi casi la propagazione di vincoli fino alla consistenza sugli archi svuota il dominio di qualche variabile, rendendo inutile ogni tentativo di risoluzione, il problema non ha soluzione. Dai dati notiamo inoltre come la complessità di un problema non dipenda esclusivamente dal numero di variabili ma essa dipende inoltre dalla complessita intrinseca del problema (strettezza dei vincoli).\\ Dai dati vediamo inoltre come i tempi di esecuzione e il numero di nodi visitati tenda a crescere (salvo oscillazioni imputabili alla complessita intrinseca di alcuni problemi) in maniera esponenziale al crescere del numero di variabili. Come atteso \texttt{MC\_Backtrack} si comporta meglio di \texttt{Backtrack}, limitando notevolemente il numero di nodi visitati e il tempo di esecuzione. Anche in questo caso tuttavia l'andamento del numero di nodi visitati al crescere del numero di variabili sembra essere esponenziale. I problemi generati casualmente hanno tutti vincoli di arietà pari a 2 e quindi ci aspettavamo che l'algoritmo che assicurasse le prestazioni migliori fosse \texttt{AC\_\allowbreak Backtrack} (dal momento che la consistenza sugli archi riduce i domini a partire da vincoli binari). Dati alla mano, infatti, \texttt{AC\_Backtrack} si conferma essere l'algoritmo migliore.\\
+Come si nota dalla tabella \ref{tab:test2} l'algoritmo \texttt{AC\_Backtrack} spesso risolve il problema ancor prima di iniziare la ricerca di una soluzione: in questi casi la propagazione di vincoli fino alla consistenza sugli archi svuota il dominio di qualche variabile, rendendo inutile ogni tentativo di risoluzione, il problema non ha soluzione. Dai dati notiamo inoltre come la complessità di un problema non dipenda esclusivamente dal numero di variabili ma essa dipende inoltre dalla complessità intrinseca del problema (strettezza dei vincoli).\\ Dai dati vediamo inoltre come i tempi di esecuzione e il numero di nodi visitati tenda a crescere (salvo oscillazioni imputabili alla complessità intrinseca di alcuni problemi) in maniera esponenziale al crescere del numero di variabili. Come atteso \texttt{MC\_Backtrack} si comporta meglio di \texttt{Backtrack}, limitando notevolemente il numero di nodi visitati e il tempo di esecuzione. Anche in questo caso tuttavia l'andamento del numero di nodi visitati al crescere del numero di variabili sembra essere esponenziale. I problemi generati casualmente hanno tutti vincoli di arietà pari a 2 e quindi ci aspettavamo che l'algoritmo che assicurasse le prestazioni migliori fosse \texttt{AC\_\allowbreak Backtrack} (dal momento che la consistenza sugli archi riduce i domini a partire da vincoli binari). Dati alla mano, infatti, \texttt{AC\_Backtrack} si conferma essere l'algoritmo migliore.\\
 In figura \ref{fig:test2_nodes} è rappresentato per ciascuno dei tre algoritmi il logaritmo in base dieci del numero di nodi visualizzati $(log(nodes))$. Rappresentiamo il logaritmo del numero di nodi e non il numero di nodi stesso per rendere la visualizzazione più efficace. Nel caso di \texttt{AC\_Backtrack}, in cui il numero di nodi visualizzati è $0$, normalizziamo anche il logaritmo a $0$.
 
 \begin{figure}[!h]
@@ -628,7 +625,7 @@ In figura \ref{fig:test2_time} riportiamo invece l'andamento dei tempi di esecuz
 
 \subsection{Test 3}
 Gli algoritmi \textit{branch and bound} (\texttt{BB}), \textit{branch and bound} con \textit{arc consistency} (\texttt{AC\_BB}) sono stati eseguiti sul problema riportato in listato \ref{lst:csp1}.\\
-I dati raccolti sono relativi a tempi di esecuzione e nodi visitati dai vari algoritmi i sono riportati in tabella \ref{tab:test2}.
+I dati raccolti sono relativi a tempi di esecuzione e nodi visitati dai vari algoritmi e sono riportati in tabella \ref{tab:test2}.
 
 \begin{longtable}{c c c}
 \toprule
@@ -663,17 +660,17 @@ Nei grafici in figura \ref{fig:test3_nodes} e \ref{fig:test3_time} sono riportat
 \section{Scelte implementative}
 \label{sec:scelte_implementative}
 
-LiES e' stato progettato per essere al tempo stesso performante e graficamente gradevole. Questi requisiti hanno portato ad un approccio ibrido per quanto riguarda i linguaggi di programmazione ed i framework utilizzati. Il risolutore e' stato scritto utilizzando il \textbf{linguaggio C} a causa della sua estrema efficienza in termini di calcolo puro. Inoltre, grazie ad elementi come le \verb+struct+, e' possibile avere una modellazione simil-object-oriented senza pero' introdurre maggiore complessita' di calcolo.\\
+LiES è stato progettato per essere al tempo stesso performante e graficamente gradevole. Questi requisiti hanno portato ad un approccio ibrido per quanto riguarda i linguaggi di programmazione ed i framework utilizzati. Il risolutore è stato scritto utilizzando il \textbf{linguaggio C} a causa della sua estrema efficienza in termini di calcolo puro. Inoltre, grazie ad elementi come le \verb+struct+, è possibile avere una modellazione simil-object-oriented senza pero' introdurre maggiore complessità di calcolo.\\
 
-Per quanto riguarda la User Interface (UI), la scelta e' invece ricaduta sul \textbf{linguaggio Java}, che grazie alle librerie grafiche \textit{Swing} e \textit{AWT} permette di creare interfacce grafiche il cui aspetto e' indipendente dalla piattaforma d'esecuzione e pertanto mantiene la stessa esperienza d'uso.\\
+Per quanto riguarda la User Interface (UI), la scelta è invece ricaduta sul \textbf{linguaggio Java}, che grazie alle librerie grafiche \textit{Swing} e \textit{AWT} permette di creare interfacce grafiche il cui aspetto è indipendente dalla piattaforma d'esecuzione e pertanto mantiene la stessa esperienza d'uso.\\
 
 Ad ogni modo, i linguaggi Java e C non sono interoperabili, richiedendo quindi una soluzione che permettesse una comunicazione bi-direzionale tra la UI e il risolutore. Sono state prese in considerazione due alternative:
 \begin{itemize}
 	\item JNI (\textit{Java Native Interface}) - si tratta di un framework che permette ad applicazioni Java di chiamare (ed essere chiamate da) codice nativo, in questo caso codice C
-	\item Runtime execution - e' possibile invocare comandi ``nativi'' (i.e., propri del sistema operativo) direttamente dalla runtime di Java
+	\item Runtime execution - è possibile invocare comandi ``nativi'' (i.e., propri del sistema operativo) direttamente dalla runtime di Java
 \end{itemize}
 
-Nonostante JNI offra un meccanismo molto valido per l'invocazione di codice nativo, la scelta e' ricaduta sulla seconda opzione, piu' semplice ed immediata.
+Nonostante JNI offra un meccanismo molto valido per l'invocazione di codice nativo, la scelta è ricaduta sulla seconda opzione, più semplice ed immediata.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5
@@ -682,13 +679,13 @@ Nonostante JNI offra un meccanismo molto valido per l'invocazione di codice nati
 \section{Requisiti di funzionamento}
 \label{sec:requisiti_funzionamento}
 
-In base a quanto riportato in Sezione~\ref{sec:scelte_implementative}, vi sono due requisiti fondamentali affinche' LiES funzioni correttamente, riportati di seguito:
+In base a quanto riportato in Sezione~\ref{sec:scelte_implementative}, vi sono due requisiti fondamentali affinché LiES funzioni correttamente, riportati di seguito:
 \begin{itemize}
 	\item Presenza di una JVM/JRE - in altre parole, il sistema operativo deve essere in grado di eseguire applicazioni Java
 	\item Presenza di un compilatore C - in maniera tale da poter compilare il risolutore
 \end{itemize}
 
-Come descritto dal manuale utente, uno script si occupera' di automatizzare il processo di compilazione del risolutore, gia' reso molto semplice dalla presenza di un \verb+makefile+.
+Come descritto dal manuale utente, uno script si occuperà di automatizzare il processo di compilazione del risolutore, già reso molto semplice dalla presenza di un \verb+makefile+.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 6
@@ -697,9 +694,9 @@ Come descritto dal manuale utente, uno script si occupera' di automatizzare il p
 \section{Versionamento}
 \label{sec:versionamento}
 
-Tutto il codice inerente lo sviluppo di LiES e' stato versionato in un repository pubblico su GitHub, un famosissimo portale di social coding. Come si evince dal nome, il sistema di versionamento utilizzato e' \verb+git+.\\
+Tutto il codice inerente lo sviluppo di LiES è stato versionato in un repository pubblico su GitHub, un famosissimo portale di social coding. Come si evince dal nome, il sistema di versionamento utilizzato è \verb+git+.\\
 
-L'URL del suddetto repository e' il seguente: \url{https://github.com/mziccard/LiES}.
+L'URL del suddetto repository è il seguente: \url{https://github.com/mziccard/LiES}.
 
 %----------------------------------------------------------------------------------------
 
