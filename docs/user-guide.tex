@@ -166,7 +166,7 @@ Email: dextorer@gmail.com, marco.ziccard@gmail.com }
 \section{Introduzione}
 \label{sec:introduzione}
 
-Questo documento illustra il funzionamento di LiES (\textit{Linear Equations Solver}) in tutte le sue componenti. La stuttura del documento e' la seguente: Sezione~\ref{sec:requisiti} elenchera' le componenti di sistema necessarie al corretto funzionamento di LiES, mentre in Sezione~\ref{sec:installazione_avvio} verra' spiegato come avviare il software. Dopo aver mostrato la schermata principale in Sezione~\ref{sec:struttura}, le successive sezioni (Sezione~\ref{sec:generazione}, Sezione~\ref{sec:salvataggio}, Sezione~\ref{sec:caricamento}, Sezione~\ref{sec:soluzione}) illustrano rispettivamente le quattro funzioni principali che LiES mette a disposizione: generazione, salvataggio, caricamento e soluzione.
+Questo documento illustra il funzionamento di LiES (\textit{Linear Equations Solver}) in tutte le sue componenti. La stuttura del documento è la seguente: Sezione~\ref{sec:requisiti} elencherà le componenti di sistema necessarie al corretto funzionamento di LiES, mentre in Sezione~\ref{sec:installazione_avvio} verrà spiegato come avviare il software. Dopo aver mostrato la schermata principale in Sezione~\ref{sec:struttura}, le successive sezioni (Sezione~\ref{sec:generazione}, Sezione~\ref{sec:salvataggio}, Sezione~\ref{sec:caricamento}, Sezione~\ref{sec:soluzione}) illustrano rispettivamente le quattro funzioni principali che LiES mette a disposizione: generazione, salvataggio, caricamento e soluzione.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
@@ -178,7 +178,7 @@ Questo documento illustra il funzionamento di LiES (\textit{Linear Equations Sol
 Il funzionamento di LiES si basa su due requisiti fondamentali a livello di sistema operativo. Tali requsiti sono elencati di seguito:
 
 \begin{itemize}
-	\item JVM/JRE, con versione 6 o superiore - questo requisito e' richiesto in quanto la UI (\textit{User Interface}) e' scritta in linguaggio Java
+	\item JVM/JRE, con versione 6 o superiore - questo requisito è richiesto in quanto la UI (\textit{User Interface}) è scritta in linguaggio Java
 	\item Compilatore C (e.g., gcc) - richiesto per la compilazione del risolutore
 \end{itemize}
 
@@ -197,7 +197,7 @@ LiES viene distribuito attraverso un comodo archivio in formato ZIP, che contien
 	\item {\emph{init\_script.sh}} - script di inizializzazione e di avvio
 \end{itemize}
 
-Per avviare LiES, e' sufficiente estrarre i contenuti dell'archivio ZIP e lanciare lo script \verb+init_script.sh+, il quale effettuera' automaticamente le seguenti operazioni:
+Per avviare LiES, è sufficiente estrarre i contenuti dell'archivio ZIP e lanciare lo script \verb+init_script.sh+, il quale effettuerà automaticamente le seguenti operazioni:
 \begin{enumerate}
 	\item Estrazione della cartella \textit{csolver} dall'archivio LiES.jar
 	\item Compilazione del risolutore, semplificata dalla presenza di un \verb+Makefile+
@@ -206,7 +206,7 @@ Per avviare LiES, e' sufficiente estrarre i contenuti dell'archivio ZIP e lancia
 	\item Esecuzione del software tramite avvio dell'archivio JAR LiES.jar
 \end{enumerate}
 
-A questo punto LiES sara' avviato e pronto all'uso.
+A questo punto LiES sarà avviato e pronto all'uso.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 4
@@ -215,7 +215,7 @@ A questo punto LiES sara' avviato e pronto all'uso.
 \section{Struttura}
 \label{sec:struttura}
 
-La schermata principale di LiES e' riportata in Figura~\ref{fig:struttura}. I numeri fanno riferimento a diversi settori dell'interfaccia, descritti di seguito. Di nuovo, per semplicita' di esposizione si fara' riferimento ai sistemi di equazioni lineari trattati da LiES con il termine CSP.
+La schermata principale di LiES è riportata in Figura~\ref{fig:struttura}. I numeri fanno riferimento a diversi settori dell'interfaccia, descritti di seguito. Di nuovo, per semplicità di esposizione si farà riferimento ai sistemi di equazioni lineari trattati da LiES con il termine CSP.
 
 \begin{figure}[htp!]
 	\centering
@@ -226,23 +226,23 @@ La schermata principale di LiES e' riportata in Figura~\ref{fig:struttura}. I nu
 
 \subsection{Parametri di generazione - 1} 
 
-Questo pannello contiene tutti i parametri che l'utente puo' configurare per generare un sistema di equazioni lineari. Tali parametri fanno riferimento a quelli illustrati nella specifica tecnica: numero di variabili per ciascun vincolo, arieta' (massima) di ciascun vincolo, dimensione del dominio di ciascuna variabile, densita' e strettezza dei vincoli.
+Questo pannello contiene tutti i parametri che l'utente può configurare per generare un sistema di equazioni lineari. Tali parametri fanno riferimento a quelli illustrati nella specifica tecnica: numero di variabili per ciascun vincolo, arietà (massima) di ciascun vincolo, dimensione del dominio di ciascuna variabile, densità e strettezza dei vincoli.
 
 \subsection{Pannello dei pulsanti - 2}
 
-Da questo pannello e' possibile operare le varie funzionalita' di LiES. Piu' in dettaglio, e' possibile generare un nuovo sistema di equazioni lineari (se i parametri sono stati opportunamente configurati); e' altresi' possibile salvare un sistema su file e caricarne uno precedentemente salvato. Infine, posto che sia stato generato un problema o sia stato caricato da un file, e' possibile farlo risolvere attraverso l'opportuno pulsante.
+Da questo pannello è possibile operare le varie funzionalità di LiES. Più in dettaglio, è possibile generare un nuovo sistema di equazioni lineari (se i parametri sono stati opportunamente configurati); è altresì possibile salvare un sistema su file e caricarne uno precedentemente salvato. Infine, posto che sia stato generato un problema o sia stato caricato da un file, è possibile farlo risolvere attraverso l'opportuno pulsante.
 
 \subsection{Metodo di risoluzione - 3}
 
-Questo pannello permette all'utente di scegliere la tecnica di risoluzione che LiES utilizzera' con il sistema di equazioni lineari attuale.
+Questo pannello permette all'utente di scegliere la tecnica di risoluzione che LiES utilizzerà con il sistema di equazioni lineari attuale.
 
 \subsection{Pannello di visualizzazione del sistema - 4}
 
-Una volta generato un sistema di equazioni, oppure una volta che questo e' stato caricato da un file, viene visualizzato in questo pannello.
+Una volta generato un sistema di equazioni, oppure una volta che questo è stato caricato da un file, viene visualizzato in questo pannello.
 
-\subsection{Pannello di visualizzazione della soluzione = 5}
+\subsection{Pannello di visualizzazione della soluzione - 5}
 
-Ogni volta che il risolutore viene invocato, il risultato della sua computazione viene riportato in questo pannello. Sara' quindi possibile scorrere tutte le operazioni fatte dal risolutore, visualizzare la soluzione (se esistente) e alcune altre statistiche (e.g., tempo impiegato).
+Ogni volta che il risolutore viene invocato, il risultato della sua computazione viene riportato in questo pannello. Sarà quindi possibile scorrere tutte le operazioni fatte dal risolutore, visualizzare la soluzione (se esistente) e alcune altre statistiche (e.g., tempo impiegato).
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5
@@ -260,7 +260,7 @@ La generazione di un nuovo sistema di equazioni lineari prevede che l'utente ins
 	\label{fig:parametri}
 \end{figure}
 
-Una volta che il pulsante ``Generate CSP'' e' stato premuto, il generatore random di LiES controlla che tutti i parametri abbiano un valore, li raccoglie e li utilizza per creare un nuovo sistema di equazioni lineari. Il risultato e' visualizzabile sull'apposito pannello, come mostrato in Figura~\ref{fig:visualizzazione}.
+Una volta che il pulsante ``Generate CSP'' è stato premuto, il generatore random di LiES controlla che tutti i parametri abbiano un valore, li raccoglie e li utilizza per creare un nuovo sistema di equazioni lineari. Il risultato è visualizzabile sull'apposito pannello, come mostrato in Figura~\ref{fig:visualizzazione}.
 
 \begin{figure}[htp!]
 	\centering
@@ -269,7 +269,7 @@ Una volta che il pulsante ``Generate CSP'' e' stato premuto, il generatore rando
 	\label{fig:visualizzazione}
 \end{figure}
 
-Sebbene il problema venga generato, salvato e caricato utilizzando una struttura in formato JSON, la sua visualizzazione viene preceduta da una fase di elaborazione al fine di offrire una rappresentazione piu' comprensibile del problema in questione. Le equazioni saranno infatti perfettamente leggibili e in un formato consono all'utente.
+Sebbene il problema venga generato, salvato e caricato utilizzando una struttura in formato JSON, la sua visualizzazione viene preceduta da una fase di elaborazione al fine di offrire una rappresentazione più comprensibile del problema in questione. Le equazioni saranno infatti perfettamente leggibili e in un formato consono all'utente.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 6
@@ -278,7 +278,7 @@ Sebbene il problema venga generato, salvato e caricato utilizzando una struttura
 \section{Salvataggio}
 \label{sec:salvataggio}
 
-Il salvataggio su file di un sistema di equazioni lineari e' reso possibile dall'apposito pulsante. Una volta premuto, l'utente disporra' di una finestra come quella mostrata in Figura~\ref{fig:finestra_salvataggio}: una volta scelto il percorso e assegnato un nome al file, la conferma dell'utente mostrera il messaggio di Figura~\ref{fig:conferma_salvataggio}, che informa l'utente dell'avvenuto salvataggio.
+Il salvataggio su file di un sistema di equazioni lineari è reso possibile dall'apposito pulsante. Una volta premuto, l'utente disporrà di una finestra come quella mostrata in Figura~\ref{fig:finestra_salvataggio}: una volta scelto il percorso e assegnato un nome al file, la conferma dell'utente mostrera il messaggio di Figura~\ref{fig:conferma_salvataggio}, che informa l'utente dell'avvenuto salvataggio.
 
 \begin{figure}[htp!]
 \centering
@@ -297,7 +297,7 @@ Il salvataggio su file di un sistema di equazioni lineari e' reso possibile dall
 \section{Caricamento}
 \label{sec:caricamento}
 
-L'operazione di caricamento, similmente all'operazione di salvataggio, mostra all'utente la finestra di scelta di un file riportata in Figura~\ref{fig:caricamento}: attraverso questa, l'utente puo' selezionare un sistema di equazioni lineari precedentemente salvato e caricarlo su LiES. 
+L'operazione di caricamento, similmente all'operazione di salvataggio, mostra all'utente la finestra di scelta di un file riportata in Figura~\ref{fig:caricamento}: attraverso questa, l'utente può selezionare un sistema di equazioni lineari precedentemente salvato e caricarlo su LiES. 
 
 \begin{figure}[htp!]
 	\centering
@@ -306,7 +306,7 @@ L'operazione di caricamento, similmente all'operazione di salvataggio, mostra al
 	\label{fig:caricamento}
 \end{figure}
 
-Tuttavia, a differenza dell'operazione di salvataggio, non viene mostrato nessun messaggio di conferma. L'utente e' in grado di stabilire se il sistema di equazioni e' stato caricato con successo se questo compare nell'apposito pannello di visualizzazione (in basso a sinistra). Inoltre, si fa presente che poiche' esso e' stato generato casualmente, i parametri originali che ne hanno portato alla creazione non sono riportati nel pannello di configurazione, che viene quindi resettato.
+Tuttavia, a differenza dell'operazione di salvataggio, non viene mostrato nessun messaggio di conferma. L'utente è in grado di stabilire se il sistema di equazioni è stato caricato con successo se questo compare nell'apposito pannello di visualizzazione (in basso a sinistra). Inoltre, si fa presente che poiché esso è stato generato casualmente, i parametri originali che ne hanno portato alla creazione non sono riportati nel pannello di configurazione, che viene quindi resettato.
 
 \section{Soluzione}
 \label{sec:soluzione}
@@ -318,7 +318,7 @@ Tuttavia, a differenza dell'operazione di salvataggio, non viene mostrato nessun
 	\label{fig:soluzione}
 \end{figure}
 
-L'operazione di risoluzione permette all'utente di visualizzare una soluzione, se esiste, di un sistema di equazioni lineari generato casualmente al momento o caricato da un file precedentemente salvato. La scelta della tecnica che il risolutore utilizzera' per calcolare la soluzione e' lasciata all'utente, che potra' scegliere tra cinque opzioni. Una premuto il pulsante che avvia la risoluzione, nell'apposito pannello compariranno i messaggi del risolutore, che terminera' o con la soluzione oppure con un fallimento. In entrambi i casi, sara' possibile visualizzare alcune statistiche sul calcolo (e.g., tempo impiegato) e sara' possibile ripercorrere tutti i passi effettuati nel calcolo della soluzione. Un esempio di soluzione e' visibile in Figura~\ref{fig:soluzione}.
+L'operazione di risoluzione permette all'utente di visualizzare una soluzione, se esiste, di un sistema di equazioni lineari generato casualmente al momento o caricato da un file precedentemente salvato. La scelta della tecnica che il risolutore utilizzerà per calcolare la soluzione è lasciata all'utente, che potrà scegliere tra cinque opzioni. Una volta premuto il pulsante che avvia la risoluzione, nell'apposito pannello compariranno i messaggi del risolutore, che terminerà o con la soluzione oppure con un fallimento. In entrambi i casi, sarà possibile visualizzare alcune statistiche sul calcolo (e.g., tempo impiegato) e sarà possibile ripercorrere tutti i passi effettuati nel calcolo della soluzione. Un esempio di soluzione è visibile in Figura~\ref{fig:soluzione}.
 
 %----------------------------------------------------------------------------------------
 
